@@ -60,7 +60,7 @@ public class TMXValidator {
 		}
 	}
 
-	private void copyFile(File file, File copy, String version) throws IOException, SAXException, ParserConfigurationException {
+	private static void copyFile(File file, File copy, String version) throws IOException, SAXException, ParserConfigurationException {
 		String systemID = "tmx14.dtd";
 		if (version.equals("1.3")) {
 			systemID = "tmx13.dtd";
