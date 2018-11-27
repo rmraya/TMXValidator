@@ -1,0 +1,416 @@
+/*******************************************************************************
+ * Copyright (c) 2003, 2018 Maxprograms.
+ *
+ * This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 1.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/org/documents/epl-v10.html
+ *
+ * Contributors:
+ *     Maxprograms - initial API and implementation
+ *******************************************************************************/ 
+package com.maxprograms.tmxvalidation;
+
+import java.io.IOException;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
+import java.text.MessageFormat;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Stack;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.Locator;
+import org.xml.sax.SAXException;
+
+import com.maxprograms.languages.RegistryParser;
+import com.maxprograms.xml.Attribute;
+import com.maxprograms.xml.Document;
+import com.maxprograms.xml.Element;
+import com.maxprograms.xml.IContentHandler;
+
+public class TMXValidatingHandler implements IContentHandler {
+
+	public static final String RELOAD = "Reload with DTD";
+	private Element current;
+	Stack<Element> stack;
+	private boolean inCDATA = false;
+	private String srcLang;
+	private RegistryParser langParser;
+	private Element root;
+
+	private Logger LOGGER = System.getLogger(TMXValidatingHandler.class.getName());
+
+	private Hashtable<String, String> ids;
+	private int balance;
+	private String version;
+	private String publicId;
+	private String systemId;
+
+	public TMXValidatingHandler() {
+		stack = new Stack<>();
+	}
+
+	@Override
+	public void startDTD(String name, String publicId1, String systemId1) throws SAXException {
+		this.publicId = publicId1;
+		this.systemId = systemId1;
+	}
+
+	@Override
+	public void endDTD() throws SAXException {
+		// do nothing
+	}
+
+	@Override
+	public void startEntity(String name) throws SAXException {
+		// do nothing, let the EntityResolver handle this
+	}
+
+	@Override
+	public void endEntity(String name) throws SAXException {
+		// do nothing, let the EntityResolver handle this
+	}
+
+	@Override
+	public void startCDATA() throws SAXException {
+		inCDATA = true;
+	}
+
+	@Override
+	public void endCDATA() throws SAXException {
+		inCDATA = false;
+	}
+
+	@Override
+	public void comment(char[] ch, int start, int length) throws SAXException {
+		// do nothing
+	}
+
+	@Override
+	public void setDocumentLocator(Locator locator) {
+		// do nothing
+	}
+
+	@Override
+	public void startDocument() throws SAXException {
+		// do nothing
+	}
+
+	@Override
+	public void endDocument() throws SAXException {
+		stack.clear();
+	}
+
+	@Override
+	public void startPrefixMapping(String prefix, String uri) throws SAXException {
+		// do nothing
+	}
+
+	@Override
+	public void endPrefixMapping(String prefix) throws SAXException {
+		// do nothing
+	}
+
+	@Override
+	public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
+		if (current == null) {
+			current = new Element(qName);
+			stack.push(current);
+		} else {
+			Element child = new Element(qName);
+			current.addContent(child);
+			stack.push(current);
+			current = child;
+		}
+		for (int i = 0; i < atts.getLength(); i++) {
+			current.setAttribute(atts.getQName(i), atts.getValue(i));
+		}
+		if (root == null) {
+			if (qName.equals("tmx")) {
+				root = current;
+				version = root.getAttributeValue("version");
+				if (version.isEmpty()) {
+					throw new SAXException("TMX version is missing");
+				}
+				if (!(version.equals("1.1") || version.equals("1.2") || version.equals("1.3")
+						|| version.equals("1.4"))) {
+					MessageFormat mf = new MessageFormat("Incorrect TMX version: {0}");
+					throw new SAXException(mf.format(new Object[] { version }));
+				}
+				if (systemId == null && publicId == null) {
+					throw new SAXException(RELOAD);
+				}
+			} else {
+				throw new SAXException("Selected file is not a TMX document");
+			}
+		}
+		if (qName.equals("header")) {
+			srcLang = current.getAttributeValue("srclang");
+			if (srcLang.isEmpty()) {
+				throw new SAXException("Source language not declared");
+			}
+			if (!srcLang.equals("*all*")) {
+				try {
+					if (!checkLang(srcLang)) {
+						MessageFormat mf = new MessageFormat("Incorrect source language ''{0}''");
+						throw new SAXException(mf.format(new Object[] { srcLang }));
+					}
+				} catch (IOException e) {
+					LOGGER.log(Level.ERROR, "Error validating source language", e);
+					throw new SAXException("Error validating source language");
+				}
+			}
+		}
+	}
+
+	@Override
+	public void endElement(String uri, String localName, String qName) throws SAXException {
+		if (current == null) {
+			return;
+		}
+		List<Attribute> attributes = current.getAttributes();
+		Iterator<Attribute> i = attributes.iterator();
+		while (i.hasNext()) {
+			Attribute a = i.next();
+			String name = a.getName();
+			String value = a.getValue();
+			if (name.equals("lang") || name.equals("adminlang") || name.equals("xml:lang")) {
+				try {
+					if (!checkLang(value)) {
+						MessageFormat mf = new MessageFormat("Invalid language code ''{0}''");
+						throw new SAXException(mf.format(new Object[] { value }));
+					}
+				} catch (IOException e) {
+					LOGGER.log(Level.ERROR, "Error validating language", e);
+					throw new SAXException("Error validating  language");
+				}
+			}
+			if (name.equals("lastusagedate") || name.equals("changedate") || name.equals("creationdate")) {
+				if (!checkDate(value)) {
+					MessageFormat mf = new MessageFormat("Invalid date format ''{0}''");
+					throw new SAXException(mf.format(new Object[] { value }));
+				}
+			}
+		}
+		if (current.getName().equals("seg")) {
+			balance = 0;
+			ids = null;
+			ids = new Hashtable<>();
+			recurse(current);
+			if (balance != 0) {
+				throw new SAXException("Unbalanced number of <bpt>/<ept> elements.\n\n" + current.toString());
+			}
+			if (ids.size() > 0) {
+				Enumeration<String> en = ids.keys();
+				while (en.hasMoreElements()) {
+					if (!ids.get(en.nextElement()).equals("0")) {
+						throw new SAXException(
+								"<bpt>/<ept> element without matching <ept>/<bpt>. \n\n" + current.toString());
+					}
+				}
+			}
+		}
+		if (localName.equals("tu")) {
+			if (!srcLang.equals("*all*")) {
+				checkLanguageVariants(current);
+			}
+			current = null;
+			stack.clear();
+		}
+		if (!stack.isEmpty()) {
+			current = stack.pop();
+		}
+	}
+
+	private void checkLanguageVariants(Element tu) throws SAXException {
+		List<Element> variants = tu.getChildren("tuv");
+		Iterator<Element> it = variants.iterator();
+		boolean found = false;
+		while (it.hasNext() && !found) {
+			Element tuv = it.next();
+			String lang = tuv.getAttributeValue("xml:lang");
+			if (lang.isEmpty() && (version.equals("1.1") || version.equals("1.2"))) {
+				lang = tuv.getAttributeValue("lang");
+			}
+			if (lang.isEmpty()) {
+				throw new SAXException("<tuv> without language attribute");
+			}
+			if (lang.equals(srcLang)) {
+				found = true;
+			}
+		}
+		if (!found) {
+			MessageFormat mf = new MessageFormat("<tu> element lacks <tuv> with language set to ''{0}''");
+			throw new SAXException(mf.format(new Object[] { srcLang }));
+		}
+	}
+
+	@Override
+	public void characters(char[] ch, int start, int length) throws SAXException {
+		if (!inCDATA && current != null) {
+			current.addContent(new String(ch, start, length));
+		}
+	}
+
+	@Override
+	public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
+		// do nothing
+	}
+
+	@Override
+	public void processingInstruction(String target, String data) throws SAXException {
+		// do nothing
+	}
+
+	@Override
+	public void skippedEntity(String name) throws SAXException {
+		// do nothing
+	}
+
+	private boolean checkLang(String lang) throws IOException {
+		if (lang.startsWith("x-") || lang.startsWith("X-")) {
+			// custom language code
+			return true;
+		}
+
+		if (langParser == null) {
+			langParser = new RegistryParser();
+		}
+		return !langParser.getTagDescription(lang).isEmpty();
+	}
+
+	private static boolean checkDate(String date) {
+		// YYYYMMDDThhmmssZ
+		if (date.length() != 16) {
+			return false;
+		}
+		if (date.charAt(8) != 'T') {
+			return false;
+		}
+		if (date.charAt(15) != 'Z') {
+			return false;
+		}
+		try {
+			int year = Integer.parseInt("" + date.charAt(0) + date.charAt(1) + date.charAt(2) + date.charAt(3));
+			if (year < 0) {
+				return false;
+			}
+			int month = Integer.parseInt("" + date.charAt(4) + date.charAt(5));
+			if (month < 1 || month > 12) {
+				return false;
+			}
+			int day = Integer.parseInt("" + date.charAt(6) + date.charAt(7));
+			switch (month) {
+			case 1:
+			case 3:
+			case 5:
+			case 7:
+			case 8:
+			case 10:
+			case 12:
+				if (day < 1 || day > 31) {
+					return false;
+				}
+				break;
+			case 4:
+			case 6:
+			case 9:
+			case 11:
+				if (day < 1 || day > 30) {
+					return false;
+				}
+				break;
+			case 2:
+				// check for leap years
+				if (year % 4 == 0) {
+					if (year % 100 == 0) {
+						// not all centuries are leap years
+						if (year % 400 == 0) {
+							if (day < 1 || day > 29) {
+								return false;
+							}
+						} else {
+							// not leap year
+							if (day < 1 || day > 28) {
+								return false;
+							}
+						}
+					}
+					if (day < 1 || day > 29) {
+						return false;
+					}
+				} else if (day < 1 || day > 28) {
+					return false;
+				}
+			}
+			int hour = Integer.parseInt("" + date.charAt(9) + date.charAt(10));
+			if (hour < 0 || hour > 23) {
+				return false;
+			}
+			int min = Integer.parseInt("" + date.charAt(11) + date.charAt(12));
+			if (min < 0 || min > 59) {
+				return false;
+			}
+			int sec = Integer.parseInt("" + date.charAt(13) + date.charAt(14));
+			if (sec < 0 || sec > 59) {
+				return false;
+			}
+		} catch (NumberFormatException e) {
+			return false;
+		}
+		return true;
+	}
+
+	private void recurse(Element element) throws SAXException {
+		List<Element> children = element.getChildren();
+		Iterator<Element> it = children.iterator();
+		while (it.hasNext()) {
+			Element e = it.next();
+			if (e.getName().equals("bpt")) {
+				balance += 1;
+				if (version.equals("1.4")) {
+					String s = e.getAttributeValue("i");
+					if (!ids.containsKey(s)) {
+						ids.put(s, "1");
+					} else {
+						if (ids.get(s).equals("-1")) {
+							ids.put(s, "0");
+						} else {
+							throw new SAXException(
+									"Duplicated value for attribute 'i' in a <bpt> element. \n\n" + element.toString());
+						}
+					}
+				}
+			}
+			if (e.getName().equals("ept")) {
+				balance -= 1;
+				if (version.equals("1.4")) {
+					String s = e.getAttributeValue("i");
+					if (!ids.containsKey(s)) {
+						ids.put(s, "-1");
+					} else {
+						if (ids.get(s).equals("1")) {
+							ids.put(s, "0");
+						} else {
+							throw new SAXException("Mismatched value for attribute 'i' in a <bpt>/<ept> element.\n\n"
+									+ element.toString());
+						}
+					}
+				}
+			}
+			recurse(e);
+		}
+	}
+
+	@Override
+	public Document getDocument() {
+		return null;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+}
