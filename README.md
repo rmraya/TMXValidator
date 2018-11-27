@@ -27,3 +27,21 @@ This version of TMXValidator does not need to load the complete file in memory a
 - Checkout this repository.
 - Point your JAVA_HOME variable to JDK 11
 - Use `buid.bat` or `build.sh` to generate a binary distribution in `./tmxvalidator`
+
+### Validating TMX files
+
+You can use the library in your own Java code. Validation of TMX files is handled by the class `com.maxprograms.tmxvalidation.TMXValidator`.
+
+If you use binaries from the command line, running `.\tmxvalidator.bat` or `./tmxvalidator.sh` without parameters displays help for TMX validation. 
+
+```
+Usage:
+
+   tmxvalidator.bat [-help] [-version] -tmx tmxFile
+
+Where:
+
+   -help:       (optional) Display this help information and exit
+   -version:    (optional) Display version & build information and exit
+   -tmx:        TMX file to validate
+```
