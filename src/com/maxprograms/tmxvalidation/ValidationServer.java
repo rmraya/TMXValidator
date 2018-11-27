@@ -21,6 +21,7 @@ import java.io.OutputStream;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.net.InetSocketAddress;
+import java.nio.charset.StandardCharsets;
 import java.util.Hashtable;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -124,7 +125,7 @@ public class ValidationServer implements HttpHandler {
 
 	private static String readRequestBody(InputStream is) throws IOException {
 		StringBuilder request = new StringBuilder();
-		try (BufferedReader rd = new BufferedReader(new InputStreamReader(is))) {
+		try (BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
 			String line;
 			while ((line = rd.readLine()) != null) {
 				request.append(line);
