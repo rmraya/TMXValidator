@@ -11,4 +11,6 @@
  *******************************************************************************/ 
 module tmxvalidator {
 	requires xliffFilters;
+	requires jdk.httpserver;
+	requires json;
 }
