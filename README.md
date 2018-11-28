@@ -45,3 +45,8 @@ Where:
    -version:    (optional) Display version & build information and exit
    -tmx:        TMX file to validate
 ```
+### Graphical User Interface (GUI)
+
+Installers that provide a graphical user interface (GUI) for TMXValidator are available at https://www.maxprograms.com/products/tmxvalidator.html 
+
+![alt text](https://maxprograms.com/images/TMXValidatorUI.png "TMXValidator GUI")
