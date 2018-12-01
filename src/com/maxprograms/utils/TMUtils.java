@@ -45,8 +45,6 @@ public class TMUtils {
 				}
 			}
 		}
-		i = null;
-		l = null;
 		return text;
 	}
 
@@ -127,7 +125,6 @@ public class TMUtils {
 			calendar.set(year, month, date, hour, minute, second);
 			return calendar.getTimeInMillis();
 		} catch (Exception e) {
-			// e.printStackTrace();
 			return 0l;
 		}
 	}

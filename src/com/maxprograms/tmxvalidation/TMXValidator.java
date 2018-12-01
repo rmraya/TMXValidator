@@ -28,7 +28,7 @@ import com.maxprograms.xml.SAXBuilder;
 
 public class TMXValidator {
 
-	private static Logger LOGGER = System.getLogger(TMXValidator.class.getName());
+	private static final Logger LOGGER = System.getLogger(TMXValidator.class.getName());
 	
 	private SAXBuilder builder;
 	private TMXValidatingHandler handler;

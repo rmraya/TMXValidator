@@ -37,7 +37,7 @@ import com.sun.net.httpserver.HttpServer;
 
 public class ValidationServer implements HttpHandler {
 
-	private static Logger LOGGER = System.getLogger(ValidationServer.class.getName());
+	private static final Logger LOGGER = System.getLogger(ValidationServer.class.getName());
 
 	private HttpServer server;
 	private Hashtable<String, String> running;
@@ -94,23 +94,25 @@ public class ValidationServer implements HttpHandler {
 				response = "{\"tool\":\"TMXValidator\", \"version\": \"" + Constants.VERSION + "\", \"build\": \""
 						+ Constants.BUILD + "\"}";
 			}
-			if (command.equals("validate")) {
-				response = validate(json);
-			}
-			if (command.equals("status")) {
-				response = getStatus(json);
-			}
-			if (command.equals("validationResult")) {
-				response = getValidationResult(json);
-			}
-			t.getResponseHeaders().add("content-type", "application/json");
-			t.sendResponseHeaders(200, response.length());
-			try (BufferedReader reader = new BufferedReader(
-					new InputStreamReader(new ByteArrayInputStream(response.getBytes())))) {
-				try (OutputStream os = t.getResponseBody()) {
-					String line;
-					while ((line = reader.readLine()) != null) {
-						os.write(line.getBytes());
+			if (json != null) {
+				if (command.equals("validate")) {
+					response = validate(json);
+				}
+				if (command.equals("status")) {
+					response = getStatus(json);
+				}
+				if (command.equals("validationResult")) {
+					response = getValidationResult(json);
+				}
+				t.getResponseHeaders().add("content-type", "application/json");
+				t.sendResponseHeaders(200, response.length());
+				try (BufferedReader reader = new BufferedReader(
+						new InputStreamReader(new ByteArrayInputStream(response.getBytes())))) {
+					try (OutputStream os = t.getResponseBody()) {
+						String line;
+						while ((line = reader.readLine()) != null) {
+							os.write(line.getBytes());
+						}
 					}
 				}
 			}

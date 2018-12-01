@@ -41,7 +41,7 @@ public class TMXValidatingHandler implements IContentHandler {
 	private RegistryParser langParser;
 	private Element root;
 
-	private Logger LOGGER = System.getLogger(TMXValidatingHandler.class.getName());
+	private static final Logger LOGGER = System.getLogger(TMXValidatingHandler.class.getName());
 
 	private Hashtable<String, String> ids;
 	private int balance;
@@ -188,11 +188,10 @@ public class TMXValidatingHandler implements IContentHandler {
 					throw new SAXException("Error validating  language");
 				}
 			}
-			if (name.equals("lastusagedate") || name.equals("changedate") || name.equals("creationdate")) {
-				if (!checkDate(value)) {
-					MessageFormat mf = new MessageFormat("Invalid date format ''{0}''");
-					throw new SAXException(mf.format(new Object[] { value }));
-				}
+			if (name.equals("lastusagedate") || name.equals("changedate")
+					|| name.equals("creationdate") && !checkDate(value)) {
+				MessageFormat mf = new MessageFormat("Invalid date format ''{0}''");
+				throw new SAXException(mf.format(new Object[] { value }));
 			}
 		}
 		if (current.getName().equals("seg")) {
@@ -345,6 +344,9 @@ public class TMXValidatingHandler implements IContentHandler {
 				} else if (day < 1 || day > 28) {
 					return false;
 				}
+				break;
+			default: 
+				return false;
 			}
 			int hour = Integer.parseInt("" + date.charAt(9) + date.charAt(10));
 			if (hour < 0 || hour > 23) {
