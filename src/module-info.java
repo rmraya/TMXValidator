@@ -10,6 +10,9 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/ 
 module tmxvalidator {
+	
+	exports com.maxprograms.tmxvalidation;
+	
 	requires xliffFilters;
 	requires jdk.httpserver;
 	requires json;
