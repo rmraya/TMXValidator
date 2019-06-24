@@ -188,8 +188,8 @@ public class TMXValidatingHandler implements IContentHandler {
 					throw new SAXException("Error validating  language");
 				}
 			}
-			if (name.equals("lastusagedate") || name.equals("changedate")
-					|| name.equals("creationdate") && !checkDate(value)) {
+			if ((name.equals("lastusagedate") || name.equals("changedate") || name.equals("creationdate"))
+					&& !checkDate(value)) {
 				MessageFormat mf = new MessageFormat("Invalid date format ''{0}''");
 				throw new SAXException(mf.format(new Object[] { value }));
 			}

@@ -14,7 +14,7 @@ package com.maxprograms.tmxvalidation;
 public class Constants {
 
 	public static final String VERSION="2.0.1";
-	public static final String BUILD="20190624_1141";
+	public static final String BUILD="20190624_1232";
 
 	private Constants() {
 		// private for security
