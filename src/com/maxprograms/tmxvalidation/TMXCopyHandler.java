@@ -130,11 +130,11 @@ public class TMXCopyHandler implements IContentHandler {
 	}
 
 	private static String cleanString(String string) {
-		string = string.replaceAll("&", "&amp;");
-		string = string.replaceAll("<", "&lt;");
-		string = string.replaceAll(">", "&gt;");
-		string = string.replaceAll("\"", "&quot;");
-		return string;
+		String result = string.replaceAll("&", "&amp;");
+		result = result.replaceAll("<", "&lt;");
+		result = result.replaceAll(">", "&gt;");
+		result = result.replaceAll("\"", "&quot;");
+		return result;
 	}
 
 	@Override

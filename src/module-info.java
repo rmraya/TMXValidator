@@ -13,7 +13,7 @@ module tmxvalidator {
 	
 	exports com.maxprograms.tmxvalidation;
 	
-	requires xliffFilters;
-	requires jdk.httpserver;
+	requires transitive xliffFilters;
+	requires transitive jdk.httpserver;
 	requires json;
 }

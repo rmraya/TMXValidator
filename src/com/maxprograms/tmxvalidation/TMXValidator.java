@@ -17,7 +17,8 @@ import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.nio.charset.StandardCharsets;
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -84,10 +85,10 @@ public class TMXValidator {
 	}
 	
 	public static void main(String[] args) {
-		args = fixPath(args);
+		String[] commandLine = fixPath(args);
 		String tmx = "";
-		for (int i = 0; i < args.length; i++) {
-			String arg = args[i];
+		for (int i = 0; i < commandLine.length; i++) {
+			String arg = commandLine[i];
 			if (arg.equals("-version")) {
 				LOGGER.log(Level.INFO, () -> "Version: " + Constants.VERSION + " Build: " + Constants.BUILD);
 				return;
@@ -96,8 +97,8 @@ public class TMXValidator {
 				help();
 				return;
 			}
-			if (arg.equals("-tmx") && (i + 1) < args.length) {
-				tmx = args[i + 1];
+			if (arg.equals("-tmx") && (i + 1) < commandLine.length) {
+				tmx = commandLine[i + 1];
 			}
 		}
 		if (tmx.isEmpty()) {
@@ -127,22 +128,23 @@ public class TMXValidator {
 	}
 
 	private static String[] fixPath(String[] args) {
-		Vector<String> result = new Vector<>();
-		String current = "";
+		List<String> result = new ArrayList<>();
+		StringBuilder current = new StringBuilder();
 		for (int i = 0; i < args.length; i++) {
 			String arg = args[i];
 			if (arg.startsWith("-")) {
-				if (!current.isEmpty()) {
-					result.add(current.trim());
-					current = "";
+				if (current.length() > 0) {
+					result.add(current.toString().trim());
+					current = new StringBuilder();
 				}
 				result.add(arg);
 			} else {
-				current = current + " " + arg;
+				current.append(' ');
+				current.append(arg);
 			}
 		}
-		if (!current.isEmpty()) {
-			result.add(current.trim());
+		if (current.length() > 0) {
+			result.add(current.toString().trim());
 		}
 		return result.toArray(new String[result.size()]);
 	}

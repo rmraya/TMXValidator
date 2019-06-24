@@ -27,63 +27,68 @@ public class TMUtils {
 
 	private static RegistryParser registry;
 
+	private TMUtils() {
+		// do not instantiate this class
+	}
+	
 	public static String pureText(Element seg) {
 		List<XMLNode> l = seg.getContent();
 		Iterator<XMLNode> i = l.iterator();
-		String text = "";
+		StringBuilder text = new StringBuilder();
 		while (i.hasNext()) {
 			XMLNode o = i.next();
 			if (o.getNodeType() == XMLNode.TEXT_NODE) {
-				text = text + ((TextNode) o).getText();
+				text.append(((TextNode) o).getText());
 			} else if (o.getNodeType() == XMLNode.ELEMENT_NODE) {
 				String type = ((Element) o).getName();
 				// discard all inline elements
 				// except <mrk> and <hi>
 				if (type.equals("sub") || type.equals("hi")) {
 					Element e = (Element) o;
-					text = text + pureText(e);
+					text.append(pureText(e));
 				}
 			}
 		}
-		return text;
+		return text.toString();
 	}
 
 	public static String normalizeLang(String lang) throws IOException {
-		if (registry == null) {
-			registry = new RegistryParser();
-		}
 		if (lang == null) {
 			return null;
 		}
-		if (lang.length() == 2 || lang.length() == 3) {
-			if (registry.getTagDescription(lang).length() > 0) {
-				return lang.toLowerCase();
+		if (registry == null) {
+			registry = new RegistryParser();
+		}
+		String result = lang;
+		if (result.length() == 2 || result.length() == 3) {
+			if (registry.getTagDescription(result).length() > 0) {
+				return result.toLowerCase();
 			}
 			return null;
 		}
-		lang = lang.replaceAll("_", "-");
-		String[] parts = lang.split("-");
+		result = result.replaceAll("_", "-");
+		String[] parts = result.split("-");
 
 		if (parts.length == 2) {
 			if (parts[1].length() == 2) {
 				// has country code
-				String code = lang.substring(0, 2).toLowerCase() + "-" + lang.substring(3).toUpperCase();
+				String code = result.substring(0, 2).toLowerCase() + "-" + result.substring(3).toUpperCase();
 				if (registry.getTagDescription(code).length() > 0) {
 					return code;
 				}
 				return null;
 			}
 			// may have a script
-			String code = lang.substring(0, 2).toLowerCase() + "-" + lang.substring(3, 4).toUpperCase()
-					+ lang.substring(4).toLowerCase();
+			String code = result.substring(0, 2).toLowerCase() + "-" + result.substring(3, 4).toUpperCase()
+					+ result.substring(4).toLowerCase();
 			if (registry.getTagDescription(code).length() > 0) {
 				return code;
 			}
 			return null;
 		}
 		// check if its a valid thing with more than 2 parts
-		if (registry.getTagDescription(lang).length() > 0) {
-			return lang;
+		if (registry.getTagDescription(result).length() > 0) {
+			return result;
 		}
 		return null;
 	}
@@ -95,13 +100,12 @@ public class TMUtils {
 		// before leaving to ensure uniqueness
 		Date next = new Date();
 		while (next.getTime() == lng) {
-			next = null;
 			next = new Date();
 		}
 		return "" + lng;
 	}
 
-	public static String TMXDate() {
+	public static String tmxDate() {
 		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
 		String sec = (calendar.get(Calendar.SECOND) < 10 ? "0" : "") + calendar.get(Calendar.SECOND);
 		String min = (calendar.get(Calendar.MINUTE) < 10 ? "0" : "") + calendar.get(Calendar.MINUTE);
@@ -113,15 +117,15 @@ public class TMUtils {
 		return longyear + mon + mday + "T" + hour + min + sec + "Z";
 	}
 
-	public static long getGMTtime(String TMXDate) {
+	public static long getGMTtime(String tmxDate) {
 		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
 		try {
-			int second = Integer.parseInt(TMXDate.substring(13, 15));
-			int minute = Integer.parseInt(TMXDate.substring(11, 13));
-			int hour = Integer.parseInt(TMXDate.substring(9, 11));
-			int date = Integer.parseInt(TMXDate.substring(6, 8));
-			int month = Integer.parseInt(TMXDate.substring(4, 6)) - 1;
-			int year = Integer.parseInt(TMXDate.substring(0, 4));
+			int second = Integer.parseInt(tmxDate.substring(13, 15));
+			int minute = Integer.parseInt(tmxDate.substring(11, 13));
+			int hour = Integer.parseInt(tmxDate.substring(9, 11));
+			int date = Integer.parseInt(tmxDate.substring(6, 8));
+			int month = Integer.parseInt(tmxDate.substring(4, 6)) - 1;
+			int year = Integer.parseInt(tmxDate.substring(0, 4));
 			calendar.set(year, month, date, hour, minute, second);
 			return calendar.getTimeInMillis();
 		} catch (Exception e) {
