@@ -50,3 +50,5 @@ Where:
 Installers that provide a graphical user interface (GUI) for TMXValidator are available at https://www.maxprograms.com/products/tmxvalidator.html 
 
 ![alt text](https://maxprograms.com/images/TMXValidatorUI.png "TMXValidator GUI")
+
+Source code for TMXValidator's GUI is available at https://github.com/rmraya/TMXValidatorUI 
