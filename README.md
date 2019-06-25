@@ -4,8 +4,6 @@
 
 Check the validity of your TMX documents in any platform with TMXValidator.
 
-Source code of TMXValidator is available under [Eclipse Public License 1.0](https://www.eclipse.org/org/documents/epl-v10.html).
-
 Most CAT (Computer Aided Translation) tools rely on TMX (Translation Memory eXchange) standard to exchange translation memory data. Unfortunately, some tools produce files that are not valid and others do not accept TMX documents that are correctly formatted.
 
 TMXValidator checks your documents against TMX DTD and also verifies if they follow the requirements described in TMX specifications.
@@ -17,6 +15,13 @@ Source code of TMXValidator was published originally on SourceForge at http://so
 The original version of TMXValidator loaded the TMX file in memory for validation. Validation of very big TMX files was limited by the amount of available memory.
 
 This version of TMXValidator does not need to load the complete file in memory and does not have size limitations.
+
+### Releases
+
+Version | Comment | Release Date
+--------|---------|-------------
+2.0.1 | Fixed date validation and updated libraries | June 24, 2019
+2.0.0 | New version that supports validation of very large files | November 28, 2018
 
 ### Build Requirements
 
