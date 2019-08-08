@@ -1,5 +1,5 @@
 /bin/
-/tmxvalidator/
+/dist/
 /.DS_Store
 /.scannerwork/
 /sonar-project.properties

@@ -20,18 +20,20 @@ This version of TMXValidator does not need to load the complete file in memory a
 
 Version | Comment | Release Date
 --------|---------|-------------
+2.0.2 | Switched to ant for building and updated OpenXLIFF| August 8, 2019
 2.0.1 | Fixed date validation and updated libraries | June 24, 2019
 2.0.0 | New version that supports validation of very large files | November 28, 2018
 
 ### Build Requirements
 
 - JDK 11 or newer.
+- Apache Ant 1.10.6
 
 ### Building
 
 - Checkout this repository.
 - Point your JAVA_HOME variable to JDK 11
-- Use `buid.bat` or `build.sh` to generate a binary distribution in `./tmxvalidator`
+- Use `ant dist` to generate a binary distribution in `./dist`
 
 ### Validating TMX files
 
