@@ -8,11 +8,10 @@
  *
  * Contributors:
  *     Maxprograms - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.maxprograms.tmxvalidation;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -98,30 +97,29 @@ public class ValidationServer implements HttpHandler {
 			if (json != null) {
 				if (command.equals("validate")) {
 					response = validate(json);
-				}
-				if (command.equals("status")) {
+				} else if (command.equals("status")) {
 					response = getStatus(json);
-				}
-				if (command.equals("validationResult")) {
+				} else if (command.equals("validationResult")) {
 					response = getValidationResult(json);
+				} else {
+					response ="{\"reason\":\"Unknown command\"}";
 				}
-				t.getResponseHeaders().add("content-type", "application/json");
+				t.getResponseHeaders().add("content-type", "application/json; charset=utf-8");
 				t.sendResponseHeaders(200, response.length());
-				try (BufferedReader reader = new BufferedReader(
-						new InputStreamReader(new ByteArrayInputStream(response.getBytes())))) {
-					try (OutputStream os = t.getResponseBody()) {
-						String line;
-						while ((line = reader.readLine()) != null) {
-							os.write(line.getBytes());
-						}
-					}
+
+				byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
+				try (OutputStream os = t.getResponseBody()) {
+					os.write(bytes);
+					os.flush();
 				}
+
 			}
 		} catch (IOException e) {
 			response = e.getMessage();
 			t.sendResponseHeaders(500, response.length());
 			try (OutputStream os = t.getResponseBody()) {
 				os.write(response.getBytes());
+				os.flush();
 			}
 		}
 	}
@@ -167,28 +165,24 @@ public class ValidationServer implements HttpHandler {
 
 	private String validate(JSONObject json) {
 		String file = json.getString("file");
-
 		String process = "" + System.currentTimeMillis();
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				running.put(process, "running");
+				JSONObject result = new JSONObject();
 				TMXValidator validator = new TMXValidator();
-				boolean valid;
-				String reason = "";
 				try {
 					validator.validate(new File(file));
-					valid = true;
-				} catch (IOException | SAXException | ParserConfigurationException e) {
-					valid = false;
-					reason = e.getMessage();
-				}
-				JSONObject result = new JSONObject();
-				result.put("valid", valid);
-				if (valid) {
+					result.put("valid", true);
 					result.put("comment", "Selected file is valid TMX");
-				} else {
+				} catch (IOException | SAXException | ParserConfigurationException e) {
+					result.put("valid", false);
+					String reason = e.getMessage();
+					if (reason.indexOf('\n') != -1) {
+						reason = reason.substring(0, reason.indexOf('\n'));
+					}
 					result.put("reason", reason);
 				}
 				validationResults.put(process, result);
