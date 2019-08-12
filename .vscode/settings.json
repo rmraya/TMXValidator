@@ -1,8 +1,8 @@
 {
     "files.exclude": {
-        "**/.classpath": true,
-        "**/.project": true,
         "**/.settings": true,
         "**/.factorypath": true
-    }
+    },
+    "java.dependency.packagePresentation": "flat",
+    "java.dependency.syncWithFolderExplorer": true
 }
