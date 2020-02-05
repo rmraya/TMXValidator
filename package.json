@@ -1,0 +1,26 @@
+{
+    "name": "tmxvalidator",
+    "productName": "TMXValidator",
+    "version": "2.1.0",
+    "description": "TMX Validator",
+    "main": "js/app.js",
+    "scripts": {
+        "build": "tsc",
+        "start": "npm run build && electron ."
+    },
+    "author": {
+        "name": "Rodolfo M. Raya",
+        "email": "rmraya@maxprograms.com",
+        "url": "https://www.maxprograms.com"
+    },
+    "license": "SEE LICENSE IN LICENSE",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/rmraya/TMXValidator.git"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "electron": "^8.0.0",
+        "typescript": "^3.7.5"
+    }
+}

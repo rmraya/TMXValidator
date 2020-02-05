@@ -39,6 +39,7 @@ public class TMXValidator {
 		handler = new TMXValidatingHandler();
 		resolver = new TMXResolver();
 		builder = new SAXBuilder();
+		builder.setValidating(true);
 		builder.setContentHandler(handler);
 		builder.setEntityResolver(resolver);
 		builder.setErrorHandler(new CustomErrorHandler());

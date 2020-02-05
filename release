@@ -1,0 +1,2 @@
+JAVA_VERSION="11.0.6"
+MODULES="java.base dtd java.logging java.xml jdk.httpserver json jsoup mapdb openxliff tmxvalidator"

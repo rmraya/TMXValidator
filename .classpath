@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="lib/json.jar">
+	<classpathentry kind="lib" path="jars/json.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/dtd.jar">
+	<classpathentry kind="lib" path="jars/dtd.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/jsoup-1.11.3.jar">
+	<classpathentry kind="lib" path="jars/jsoup-1.11.3.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
@@ -21,12 +21,12 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/mapdb.jar">
+	<classpathentry kind="lib" path="jars/mapdb.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="lib/openxliff.jar">
+	<classpathentry kind="lib" path="jars/openxliff.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>

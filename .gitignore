@@ -1,6 +1,15 @@
 /bin/
 /dist/
-/.DS_Store
+.DS_Store
 /.scannerwork/
 /sonar-project.properties
 /sonarqube.sh
+/node_modules
+/js
+package-lock.json
+/out
+/lib
+/legal
+/include
+/conf
+

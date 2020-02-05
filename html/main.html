@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TMXValidator</title>
+    <link rel="stylesheet" href="../css/custom.css">
+</head>
+
+<body>
+    <div class="panel">
+        <table class="panel">
+            <tr>
+                <td class="panel">
+                    <h1>TMXValidator</h1>
+                </td>
+                <td class="panel"><a onclick="showAbout()" href="#"><img class="right" src="../img/info.png"></a></td>
+            </tr>
+        </table>
+    </div>
+    <div class="panel">
+        <table class="panel">
+            <tr>
+                <td class="panel"><label>TMX File</label></td>
+                <td class="panel fill"><input id="tmxFile" type="text" class="fill"></td>
+                <td class="panel"><button class="dark" onclick="browse()">Browse...</button></td>
+            </tr>
+        </table>
+        <table class="panel">
+            <tr>
+                <td class="panel" width="60%">
+                    <p  class="right"><img id="working" src="../img/working.gif" style="display:none;"/></p>
+                </td>
+                <td class="panel">
+                    <button onclick="validate()" class="primary right">Validate TMX</button>
+                    <p id="validate"></p>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script src="../js/main.js"></script>
+</body>
+
+</html>

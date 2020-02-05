@@ -20,42 +20,33 @@ This version of TMXValidator does not need to load the complete file in memory a
 
 Version | Comment | Release Date
 --------|---------|-------------
+2.1.0 | Added UI written in TypeScript | February 5, 2020
 2.0.2 | Switched to ant for building and updated OpenXLIFF| August 8, 2019
 2.0.1 | Fixed date validation and updated libraries | June 24, 2019
 2.0.0 | New version that supports validation of very large files | November 28, 2018
 
-### Build Requirements
+Ready to use installers are available at https://www.maxprograms.com/products/tmxvalidator.html 
 
-- JDK 11 or newer.
-- Apache Ant 1.10.6
+## Requirements
 
-### Building
+- JDK 11 or newer is required for compiling and building. Get it from [AdoptOpenJDK](https://adoptopenjdk.net/).
+- Apache Ant 1.10.7 or newer. Get it from [https://ant.apache.org/](https://ant.apache.org/)
+- Node.js 12.14.0 LTS or newer. Get it from [https://nodejs.org/](https://nodejs.org/)
+- TypeScript 3.7.5 or newer. Get it from [https://www.typescriptlang.org/](https://www.typescriptlang.org/)
+
+## Building
 
 - Checkout this repository.
-- Point your JAVA_HOME variable to JDK 11
-- Use `ant dist` to generate a binary distribution in `./dist`
+- Point your `JAVA_HOME` environment variable to JDK 11
+- Run `ant` to compile the Java code
+- Run `npm install` to download and install NodeJS dependencies
+- Run `npm start` to launch TMXEditor
 
-### Validating TMX files
-
-You can use the library in your own Java code. Validation of TMX files is handled by the class `com.maxprograms.tmxvalidation.TMXValidator`.
-
-If you use binaries from the command line, running `.\tmxvalidator.bat` or `./tmxvalidator.sh` without parameters displays help for TMX validation. 
-
+``` bash
+  git clone https://github.com/rmraya/TMXValidator.git
+  cd TMXValidator
+  ant
+  npm install
+  npm start
 ```
-Usage:
-
-   tmxvalidator.bat [-help] [-version] -tmx tmxFile
-
-Where:
-
-   -help:       (optional) Display this help information and exit
-   -version:    (optional) Display version & build information and exit
-   -tmx:        TMX file to validate
-```
-### Graphical User Interface (GUI)
-
-Installers that provide a graphical user interface (GUI) for TMXValidator are available at https://www.maxprograms.com/products/tmxvalidator.html 
-
-![alt text](https://maxprograms.com/images/TMXValidatorUI.png "TMXValidator GUI")
-
-Source code for TMXValidator's GUI is available at https://github.com/rmraya/TMXValidatorUI 
+Compile once and then simply run `npm start` to start TMXValidator

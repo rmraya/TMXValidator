@@ -25,14 +25,12 @@ import java.util.Hashtable;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.xml.sax.SAXException;
-
-import com.maxprograms.converters.Constants;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+
+import org.json.JSONObject;
+import org.xml.sax.SAXException;
 
 public class ValidationServer implements HttpHandler {
 
@@ -90,30 +88,28 @@ public class ValidationServer implements HttpHandler {
 				json = new JSONObject(request);
 				command = json.getString("command");
 			}
-			if (command.equals("version")) {
-				response = "{\"tool\":\"TMXValidator\", \"version\": \"" + Constants.VERSION + "\", \"build\": \""
-						+ Constants.BUILD + "\"}";
+			if ("version".equals(command)) {
+				JSONObject result = new JSONObject();
+				result.put("version", Constants.VERSION);
+				result.put("build", Constants.BUILD);
+				response = result.toString();
+			} else if ("validate".equals(command)) {
+				response = validate(json);
+			} else if ("status".equals(command)) {
+				response = getStatus(json);
+			} else if ("validationResult".equals(command)) {
+				response = getValidationResult(json);
+			} else {
+				response = "{\"reason\":\"Unknown command\"}";
 			}
-			if (json != null) {
-				if (command.equals("validate")) {
-					response = validate(json);
-				} else if (command.equals("status")) {
-					response = getStatus(json);
-				} else if (command.equals("validationResult")) {
-					response = getValidationResult(json);
-				} else {
-					response ="{\"reason\":\"Unknown command\"}";
-				}
-				t.getResponseHeaders().add("content-type", "application/json; charset=utf-8");
-				t.sendResponseHeaders(200, response.length());
-
-				byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
-				try (OutputStream os = t.getResponseBody()) {
-					os.write(bytes);
-					os.flush();
-				}
-
+			t.getResponseHeaders().add("content-type", "application/json; charset=utf-8");
+			byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
+			t.sendResponseHeaders(200, bytes.length);
+			try (OutputStream os = t.getResponseBody()) {
+				os.write(bytes);
+				os.flush();
 			}
+
 		} catch (IOException e) {
 			response = e.getMessage();
 			t.sendResponseHeaders(500, response.length());
@@ -136,41 +132,55 @@ public class ValidationServer implements HttpHandler {
 	}
 
 	private String getStatus(JSONObject json) {
-		String status = "unknown";
-		try {
-			String process = json.getString("process");
-			status = running.get(process);
-		} catch (JSONException je) {
-			status = "error";
+		JSONObject result = new JSONObject();
+		if (!json.has("process")) {
+			result.put("status", Constants.ERROR);
+			result.put("reason", "Missing 'process' parameter");
+			return result.toString();
 		}
-		if (status == null) {
-			status = "Error";
+		String process = json.getString("process");
+		String status = running.get(process);
+		if (status != null) {
+			result.put("status", status);
+		} else {
+			result.put("status", Constants.ERROR);
+			result.put("reason", "Null 'status'");
 		}
-		return "{\"status\": \"" + status + "\"}";
+		return result.toString();
 	}
 
 	private String getValidationResult(JSONObject json) {
 		JSONObject result = new JSONObject();
-		try {
-			String process = json.getString("process");
+		if (!json.has("process")) {
+			result.put("status", Constants.ERROR);
+			result.put("reason", "Missing 'process' parameter");
+			return result.toString();
+		}
+		String process = json.getString("process");
+		if (validationResults.containsKey(process)) {
 			result = validationResults.get(process);
 			validationResults.remove(process);
-		} catch (JSONException je) {
-			LOGGER.log(Level.ERROR, je);
-			result.put("valid", false);
-			result.put("reason", "Error retrieving result from server");
+			return result.toString();
 		}
-		return result.toString(2);
+		result.put("status", Constants.ERROR);
+		result.put("reason", "Validation result not found");
+		return result.toString();
 	}
 
 	private String validate(JSONObject json) {
+		JSONObject result = new JSONObject();
+		if (!json.has("file")) {
+			result.put("status", Constants.ERROR);
+			result.put("reason", "Missing 'file' parameter");
+			return result.toString();
+		}
 		String file = json.getString("file");
 		String process = "" + System.currentTimeMillis();
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				running.put(process, "running");
+				running.put(process, Constants.RUNNING);
 				JSONObject result = new JSONObject();
 				TMXValidator validator = new TMXValidator();
 				try {
@@ -186,12 +196,14 @@ public class ValidationServer implements HttpHandler {
 					result.put("reason", reason);
 				}
 				validationResults.put(process, result);
-				if (running.get(process).equals(("running"))) {
+				if (running.get(process).equals(Constants.RUNNING)) {
 					LOGGER.log(Level.INFO, "Validation completed");
-					running.put(process, "completed");
+					running.put(process, Constants.COMPLETED);
 				}
 			}
 		}).start();
-		return "{\"process\":\"" + process + "\"}";
+		result.put("status", Constants.SUCCESS);
+		result.put("process", process);
+		return result.toString();
 	}
 }
