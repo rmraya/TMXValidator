@@ -20,7 +20,7 @@ This version of TMXValidator does not need to load the complete file in memory a
 
 Version | Comment | Release Date
 --------|---------|-------------
-2.1.0 | Added UI written in TypeScript | February 5, 2020
+2.1.0 | Added UI written in TypeScript and improved validation | February 5, 2020
 2.0.2 | Switched to ant for building and updated OpenXLIFF| August 8, 2019
 2.0.1 | Fixed date validation and updated libraries | June 24, 2019
 2.0.0 | New version that supports validation of very large files | November 28, 2018
