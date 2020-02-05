@@ -80,7 +80,7 @@ function createWindows() {
         height: 170,
         show: false,
         maximizable: false,
-        icon: './img/tmxvalidator.png',
+        icon: 'img/tmxvalidator.png',
         backgroundColor: '#2d2d2e',
         webPreferences: {
             nodeIntegration: true
@@ -115,7 +115,7 @@ ipcMain.on('show-about', (event, arg) => {
         maximizable: false,
         resizable: false,
         show: false,
-        icon: '../img/tmxvalidator.png',
+        icon: 'img/tmxvalidator.png',
         backgroundColor: '#2d2d2e',
         webPreferences: {
             nodeIntegration: true
