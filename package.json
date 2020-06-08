@@ -6,10 +6,7 @@
     "main": "js/app.js",
     "scripts": {
         "build": "tsc",
-        "start": "npm run build && electron .",
-        "package-mac": "electron-packager --overwrite --darwinDarkModeSupport=true --icon icons/TMXValidator.icns --app-bundle-id=com.maxprograms.tmxvalidator --ignore 'ts' --ignore 'src' --ignore 'jars' .",
-        "package-win": "electron-packager --overwrite --icon icons\\TMXValidator.ico --ignore 'ts' --ignore 'src' --ignore 'jars' .",
-        "package-linux": "electron-packager --overwrite --icon icons/TMXValidator.png --ignore 'ts' --ignore 'src' --ignore 'jars' ."
+        "start": "npm run build && electron ."
     },
     "author": {
         "name": "Rodolfo M. Raya",
@@ -23,7 +20,7 @@
     },
     "dependencies": {},
     "devDependencies": {
-        "electron": "^8.0.0",
-        "typescript": "^3.7.5"
+        "electron": "^8.3.1",
+        "typescript": "^3.9.3"
     }
 }
