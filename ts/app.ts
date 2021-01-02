@@ -11,221 +11,231 @@
  *******************************************************************************/
 
 import { app, ipcMain, BrowserWindow, dialog } from "electron";
-import { execFileSync, spawn } from "child_process";
+import { ChildProcessWithoutNullStreams, execFileSync, spawn } from "child_process";
 import { ClientRequest, request } from "http";
+import { IpcMainEvent } from "electron/main";
 
-var mainWindow: BrowserWindow;
-var javapath: string = app.getAppPath() + '/bin/java';
-var killed: boolean = false;
-var currentStatus: any = {};
+class TMXValidator {
 
-if (!app.requestSingleInstanceLock()) {
-    app.quit()
-} else {
-    if (mainWindow) {
-        // Someone tried to run a second instance, we should focus our window.
-        if (mainWindow.isMinimized()) {
-            mainWindow.restore()
-        }
-        mainWindow.focus()
-    }
-}
+    static mainWindow: BrowserWindow;
+    javapath: string = app.getAppPath() + '/bin/java';
+    static ls: ChildProcessWithoutNullStreams;
+    static killed: boolean = false;
+    static currentStatus: any = {};
 
-if (process.platform == 'win32') {
-    javapath = app.getAppPath() + '\\bin\\java.exe';
-}
-
-const ls = spawn(javapath, ['--module-path', 'lib', '-m', 'tmxvalidator/com.maxprograms.tmxvalidation.ValidationServer'], { cwd: app.getAppPath() });
-
-ls.stdout.on('data', (data) => {
-    console.log(`stdout: ${data}`);
-});
-
-ls.stderr.on('data', (data) => {
-    console.error(`stderr: ${data}`);
-});
-
-ls.on('close', (code) => {
-    console.log(`child process exited with code ${code}`);
-});
-
-var ck: Buffer = execFileSync('bin/java', ['--module-path', 'lib', '-m', 'openxliff/com.maxprograms.server.CheckURL', 'http://localhost:8010/ValidationServer'], { cwd: app.getAppPath() });
-console.log(ck.toString());
-
-function stopServer() {
-    if (!killed) {
-        ls.kill();
-        killed = true;
-    }
-}
-
-app.on('ready', () => {
-    createWindows();
-    mainWindow.show();
-    // mainWindow.webContents.openDevTools();
-});
-
-app.on('quit', () => {
-    stopServer();
-})
-
-app.on('window-all-closed', function () {
-    stopServer();
-    app.quit()
-})
-
-function createWindows() {
-    mainWindow = new BrowserWindow({
-        width: 560,
-        height: 170,
-        show: false,
-        maximizable: false,
-        icon: 'img/tmxvalidator.png',
-        backgroundColor: '#2d2d2e',
-        webPreferences: {
-            nodeIntegration: true
-        }
-    });
-    mainWindow.setMenu(null);
-    mainWindow.loadURL('file://' + app.getAppPath() + '/html/main.html');
-}
-
-ipcMain.on('select-tmx-validation', (event, arg) => {
-    dialog.showOpenDialog({
-        properties: ['openFile'],
-        filters: [
-            { name: 'TMX File', extensions: ['tmx'] }
-        ]
-    }).then((value) => {
-        if (!value.canceled) {
-            event.sender.send('add-tmx-validation', value.filePaths[0]);
-        }
-    }).catch((reason) => {
-        dialog.showErrorBox('Error', reason);
-    });
-});
-
-
-ipcMain.on('show-about', (event, arg) => {
-    var about = new BrowserWindow({
-        parent: mainWindow,
-        width: 280,
-        height: 280,
-        minimizable: false,
-        maximizable: false,
-        resizable: false,
-        show: false,
-        icon: 'img/tmxvalidator.png',
-        backgroundColor: '#2d2d2e',
-        webPreferences: {
-            nodeIntegration: true
-        }
-    });
-    about.loadURL('file://' + app.getAppPath() + '/html/about.html');
-    about.setMenu(null);
-    about.show();
-});
-
-function sendRequest(json: any, success: any, error: any) {
-    var postData: string = JSON.stringify(json);
-    var options = {
-        hostname: '127.0.0.1',
-        port: 8010,
-        path: '/ValidationServer',
-        headers: {
-            'Content-Type': 'application/json',
-            'Content-Length': Buffer.byteLength(postData)
-        }
-    };
-    // Make a request
-    var req: ClientRequest = request(options);
-    req.on('response',
-        function (res: any) {
-            res.setEncoding('utf-8');
-            if (res.statusCode != 200) {
-                error('sendRequest() error: ' + res.statusMessage);
-            }
-            var rawData: string = '';
-            res.on('data', function (chunk: string) {
-                rawData += chunk;
-            });
-            res.on('end', function () {
-                try {
-                    success(JSON.parse(rawData));
-                } catch (e) {
-                    error(e.message);
+    constructor() {
+        app.allowRendererProcessReuse = true;
+        if (!app.requestSingleInstanceLock()) {
+            app.quit()
+        } else {
+            if (TMXValidator.mainWindow) {
+                // Someone tried to run a second instance, we should focus our window.
+                if (TMXValidator.mainWindow.isMinimized()) {
+                    TMXValidator.mainWindow.restore()
                 }
-            });
+                TMXValidator.mainWindow.focus();
+            }
         }
-    );
-    req.write(postData);
-    req.end();
-}
+        if (process.platform == 'win32') {
+            this.javapath = app.getAppPath() + '\\bin\\java.exe';
+        }
+        TMXValidator.ls = spawn(this.javapath, ['--module-path', 'lib', '-m', 'tmxvalidator/com.maxprograms.tmxvalidation.ValidationServer'], { cwd: app.getAppPath() });
+        TMXValidator.ls.stdout.on('data', (data) => {
+            console.log(`stdout: ${data}`);
+        });
+        TMXValidator.ls.stderr.on('data', (data) => {
+            console.error(`stderr: ${data}`);
+        });
+        let ck: Buffer = execFileSync('bin/java', ['--module-path', 'lib', '-m', 'openxliff/com.maxprograms.server.CheckURL', 'http://localhost:8010/ValidationServer'], { cwd: app.getAppPath() });
+        console.log(ck.toString());
 
-function getStatus(processId: string) {
-    sendRequest({ command: 'status', process: processId },
-        function success(data: any) {
-            currentStatus = data;
-        },
-        function error(reason: string) {
+        app.on('ready', () => {
+            TMXValidator.createWindows();
+            TMXValidator.mainWindow.show();
+        });
+        app.on('quit', () => {
+            TMXValidator.stopServer();
+        });
+        app.on('window-all-closed', function () {
+            TMXValidator.stopServer();
+            app.quit()
+        });
+        ipcMain.on('select-file', () => {
+            dialog.showErrorBox('Attention', 'Select TMX file');
+        });
+        ipcMain.on('select-tmx-validation', () => {
+            this.selectFile();
+        });
+        ipcMain.on('show-about', () => {
+            this.showAbout();
+        });
+        ipcMain.on('validate', (event: IpcMainEvent, arg: any) => {
+            TMXValidator.validate(event, arg);
+        });
+        ipcMain.on('get-version', (event: IpcMainEvent) => {
+            TMXValidator.sendRequest({ command: 'version' },
+                (data: any) => {
+                    event.sender.send('set-version', data);
+                },
+                (reason: string) => {
+                    dialog.showErrorBox('Error', reason);
+                }
+            );
+        });
+    }
+
+    static stopServer(): void {
+        if (!this.killed) {
+            TMXValidator.ls.kill();
+            TMXValidator.killed = true;
+        }
+    }
+
+    selectFile(): void {
+        dialog.showOpenDialog({
+            properties: ['openFile'],
+            filters: [
+                { name: 'TMX File', extensions: ['tmx'] }
+            ]
+        }).then((value) => {
+            if (!value.canceled) {
+                TMXValidator.mainWindow.webContents.send('add-tmx-validation', value.filePaths[0]);
+            }
+        }).catch((reason) => {
             dialog.showErrorBox('Error', reason);
-        }
-    );
-}
+        });
+    }
 
-ipcMain.on('validate', (event, arg) => {
-    event.sender.send('validation-started');
-    sendRequest(arg,
-        function success(data: any) {
-            currentStatus = data;
-            var intervalObject = setInterval(function () {
-                if (currentStatus.status === 'Success') {
-                    // ignore status from validation request
-                } else if (currentStatus.status === 'Completed') {
-                    clearInterval(intervalObject);
-                    event.sender.send('validation-completed');
-                    getValidationStatus(data.process, event);
-                    return;
-                } else if (currentStatus.status === 'Running') {
-                    // keep waiting
+    static validate(event: IpcMainEvent, arg: any): void {
+        event.sender.send('validation-started');
+        TMXValidator.sendRequest(arg,
+            function success(data: any) {
+                TMXValidator.currentStatus = data;
+                var intervalObject = setInterval(function () {
+                    if (TMXValidator.currentStatus.status === 'Success') {
+                        // ignore status from validation request
+                    } else if (TMXValidator.currentStatus.status === 'Completed') {
+                        clearInterval(intervalObject);
+                        event.sender.send('validation-completed');
+                        TMXValidator.getValidationStatus(data.process, event);
+                        return;
+                    } else if (TMXValidator.currentStatus.status === 'Running') {
+                        // keep waiting
+                    } else {
+                        clearInterval(intervalObject);
+                        event.sender.send('validation-completed');
+                        dialog.showErrorBox('Error', TMXValidator.currentStatus.reason);
+                        return;
+                    }
+                    TMXValidator.getStatus(data.process);
+                }, 500);
+            },
+            function error(reason: string) {
+                dialog.showErrorBox('Error', reason);
+            }
+        );
+    }
+
+    showAbout(): void {
+        var about = new BrowserWindow({
+            parent: TMXValidator.mainWindow,
+            width: 280,
+            height: 280,
+            minimizable: false,
+            maximizable: false,
+            resizable: false,
+            show: false,
+            icon: 'img/tmxvalidator.png',
+            backgroundColor: '#2d2d2e',
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation: false
+            }
+        });
+        about.loadURL('file://' + app.getAppPath() + '/html/about.html');
+        about.setMenu(null);
+        about.show();
+    }
+
+    static createWindows() {
+        TMXValidator.mainWindow = new BrowserWindow({
+            width: 560,
+            height: 170,
+            show: false,
+            maximizable: false,
+            icon: 'img/tmxvalidator.png',
+            backgroundColor: '#2d2d2e',
+            webPreferences: {
+                nodeIntegration: true,
+                contextIsolation: false
+            }
+        });
+        TMXValidator.mainWindow.setMenu(null);
+        TMXValidator.mainWindow.loadURL('file://' + app.getAppPath() + '/html/main.html');
+    }
+
+    static sendRequest(json: any, success: any, error: any): void {
+        let postData: string = JSON.stringify(json);
+        let options = {
+            hostname: '127.0.0.1',
+            port: 8010,
+            path: '/ValidationServer',
+            headers: {
+                'Content-Type': 'application/json',
+                'Content-Length': Buffer.byteLength(postData)
+            }
+        };
+        // Make a request
+        let req: ClientRequest = request(options);
+        req.on('response',
+            function (res: any) {
+                res.setEncoding('utf-8');
+                if (res.statusCode != 200) {
+                    error('sendRequest() error: ' + res.statusMessage);
+                }
+                var rawData: string = '';
+                res.on('data', (chunk: string) => {
+                    rawData += chunk;
+                });
+                res.on('end', () => {
+                    try {
+                        success(JSON.parse(rawData));
+                    } catch (e) {
+                        error(e.message);
+                    }
+                });
+            }
+        );
+        req.write(postData);
+        req.end();
+    }
+
+    static getStatus(processId: string): void {
+        TMXValidator.sendRequest({ command: 'status', process: processId },
+            (data: any) => {
+                TMXValidator.currentStatus = data;
+            },
+            (reason: string) => {
+                dialog.showErrorBox('Error', reason);
+            }
+        );
+    }
+
+    static getValidationStatus(processId: string, event: any): void {
+        TMXValidator.sendRequest({ command: 'validationResult', process: processId },
+            (data: any) => {
+                if (data.valid) {
+                    dialog.showMessageBox({ type: 'info', message: data.comment });
                 } else {
-                    clearInterval(intervalObject);
-                    event.sender.send('validation-completed');
-                    dialog.showErrorBox('Error', currentStatus.reason);
-                    return;
+                    dialog.showMessageBox({ type: 'error', message: data.reason });
                 }
-                getStatus(data.process);
-            }, 500);
-        },
-        function error(reason: string) {
-            dialog.showErrorBox('Error', reason);
-        }
-    );
-});
-
-function getValidationStatus(processId: string, event: any) {
-    sendRequest({ command: 'validationResult', process: processId },
-        function success(data: any) {
-            if (data.valid) {
-                dialog.showMessageBox({ type: 'info', message: data.comment });
-            } else {
-                dialog.showMessageBox({ type: 'error', message: data.reason });
+            },
+            (reason: string) => {
+                dialog.showErrorBox('Error', reason);
             }
-        },
-        function error(reason: string) {
-            dialog.showErrorBox('Error', reason);
-        }
-    );
+        );
+    }
+
 }
 
-ipcMain.on('get-version', (event) => {
-    sendRequest({ command: 'version' },
-        function success(data: any) {
-            event.sender.send('set-version', data);
-        },
-        function error(reason: string) {
-            dialog.showErrorBox('Error', reason);
-        }
-    );
-});
-
+new TMXValidator();

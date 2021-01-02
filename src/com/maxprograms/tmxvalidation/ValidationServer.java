@@ -197,7 +197,6 @@ public class ValidationServer implements HttpHandler {
 				}
 				validationResults.put(process, result);
 				if (running.get(process).equals(Constants.RUNNING)) {
-					LOGGER.log(Level.INFO, "Validation completed");
 					running.put(process, Constants.COMPLETED);
 				}
 			}

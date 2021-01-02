@@ -15,7 +15,7 @@
                 <td class="panel">
                     <h1>TMXValidator</h1>
                 </td>
-                <td class="panel"><a onclick="showAbout()" href="#"><img class="right" src="../img/info.png"></a></td>
+                <td class="panel"><a id="about"><img class="right" src="../img/info.png"></a></td>
             </tr>
         </table>
     </div>
@@ -24,7 +24,7 @@
             <tr>
                 <td class="panel"><label>TMX File</label></td>
                 <td class="panel fill"><input id="tmxFile" type="text" class="fill"></td>
-                <td class="panel"><button class="dark" onclick="browse()">Browse...</button></td>
+                <td class="panel"><button class="dark" id="browse">Browse...</button></td>
             </tr>
         </table>
         <table class="panel">
@@ -33,8 +33,7 @@
                     <p  class="right"><img id="working" src="../img/working.gif" style="display:none;"/></p>
                 </td>
                 <td class="panel">
-                    <button onclick="validate()" class="primary right">Validate TMX</button>
-                    <p id="validate"></p>
+                    <button id="validate" class="primary right">Validate TMX</button>
                 </td>
             </tr>
         </table>

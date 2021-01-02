@@ -10,10 +10,17 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
-var _b = require('electron');
-_b.ipcRenderer.send('get-version');
+class About {
+    
+    electron = require('electron');
 
-_b.ipcRenderer.on('set-version', (event, arg) => {
-    document.getElementById('version').innerHTML = arg.version;
-    document.getElementById('build').innerHTML = arg.build;
-});
+    constructor() {
+        this.electron.ipcRenderer.send('get-version');
+        this.electron.ipcRenderer.on('set-version', (event: Electron.IpcRendererEvent, arg: any) => {
+            document.getElementById('version').innerHTML = arg.version;
+            document.getElementById('build').innerHTML = arg.build;
+        });
+    }
+}
+
+new About();

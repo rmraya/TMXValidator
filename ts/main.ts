@@ -10,34 +10,49 @@
  *     Maxprograms - initial API and implementation
  *******************************************************************************/
 
- const { ipcRenderer } = require('electron');
-const { dialog } = require('electron').remote
+class Main {
 
-function browse() {
-    ipcRenderer.send('select-tmx-validation');
-}
+    electron = require('electron');
 
-function validate() {
-    var tmxfile: string = (document.getElementById('tmxFile') as HTMLInputElement).value;
-    if (!tmxfile) {
-        dialog.showErrorBox('Attention', 'Select TMX file');
-        return;
+    constructor() {
+        document.getElementById('browse').addEventListener('click', () => {
+            this.browse();
+        });
+        document.getElementById('about').addEventListener('click', () => {
+            this.showAbout();
+        });
+        document.getElementById('validate').addEventListener('click', () => {
+            this.validate();
+        });
+        this.electron.ipcRenderer.on('add-tmx-validation', (event: Electron.IpcRendererEvent, arg: any) => {
+            (document.getElementById('tmxFile') as HTMLInputElement).value = arg;
+        });
+
+        this.electron.ipcRenderer.on('validation-started', () => {
+            document.getElementById('working').style.display = 'block';
+        });
+
+        this.electron.ipcRenderer.on('validation-completed', () => {
+            document.getElementById('working').style.display = 'none';
+        });
     }
-    ipcRenderer.send('validate', { command: 'validate', file: tmxfile });
+
+    browse() {
+        this.electron.ipcRenderer.send('select-tmx-validation');
+    }
+
+    validate() {
+        let tmxfile: string = (document.getElementById('tmxFile') as HTMLInputElement).value;
+        if (tmxfile === '') {
+            this.electron.ipcRenderer.send('select-file');
+            return;
+        }
+        this.electron.ipcRenderer.send('validate', { command: 'validate', file: tmxfile });
+    }
+
+    showAbout() {
+        this.electron.ipcRenderer.send('show-about');
+    }
 }
 
-ipcRenderer.on('add-tmx-validation', (event, arg) => {
-    (document.getElementById('tmxFile') as HTMLInputElement).value = arg;
-});
-
-ipcRenderer.on('validation-started', (event, arg) => {
-    document.getElementById('working').style.display = 'block';
-});
-
-ipcRenderer.on('validation-completed', (event, arg) => {
-    document.getElementById('working').style.display = 'none';
-});
-
-function showAbout() {
-    ipcRenderer.send('show-about');
-}
+new Main();
