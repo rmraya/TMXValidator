@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005-2021 Maxprograms.
+ * Copyright (c) 2005-2022 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -24,7 +24,6 @@ class TMXValidator {
     static currentStatus: any = {};
 
     constructor() {
-        app.allowRendererProcessReuse = true;
         if (!app.requestSingleInstanceLock()) {
             app.quit()
         } else {
@@ -46,9 +45,8 @@ class TMXValidator {
         TMXValidator.ls.stderr.on('data', (data) => {
             console.error(`stderr: ${data}`);
         });
-        let ck: Buffer = execFileSync('bin/java', ['--module-path', 'lib', '-m', 'openxliff/com.maxprograms.server.CheckURL', 'http://localhost:8010/ValidationServer'], { cwd: app.getAppPath() });
-        console.log(ck.toString());
-
+        execFileSync('bin/java', ['--module-path', 'lib', '-m', 'openxliff/com.maxprograms.server.CheckURL', 'http://localhost:8010/ValidationServer'], { cwd: app.getAppPath() });
+        
         app.on('ready', () => {
             TMXValidator.createWindows();
             TMXValidator.mainWindow.show();

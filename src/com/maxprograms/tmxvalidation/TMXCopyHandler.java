@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005-2021 Maxprograms.
+ * Copyright (c) 2005-2022 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -19,6 +19,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 
+import com.maxprograms.xml.Catalog;
 import com.maxprograms.xml.Document;
 import com.maxprograms.xml.IContentHandler;
 
@@ -155,6 +156,11 @@ public class TMXCopyHandler implements IContentHandler {
 	@Override
 	public Document getDocument() {
 		return null;
+	}
+
+	@Override
+	public void setCatalog(Catalog arg0) {
+		// do nothing		
 	}
 
 }

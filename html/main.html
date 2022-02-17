@@ -10,29 +10,22 @@
 
 <body>
     <div class="panel">
-        <table class="panel">
-            <tr>
-                <td class="panel">
-                    <h1>TMXValidator</h1>
-                </td>
-                <td class="panel"><a id="about"><img class="right" src="../img/info.png"></a></td>
-            </tr>
-        </table>
+        <span style="width:100%;">&nbsp;</span><a id="about"><img class="right" src="../img/info.png"></a>
     </div>
-    <div class="panel">
-        <table class="panel">
+    <div class="fill">
+        <table class="fill">
             <tr>
-                <td class="panel"><label>TMX File</label></td>
-                <td class="panel fill"><input id="tmxFile" type="text" class="fill"></td>
-                <td class="panel"><button class="dark" id="browse">Browse...</button></td>
+                <td><label>TMX File</label></td>
+                <td class="fill"><input id="tmxFile" type="text" class="fill"></td>
+                <td><button class="dark" id="browse">Browse...</button></td>
             </tr>
         </table>
-        <table class="panel">
+        <table class="fill">
             <tr>
-                <td class="panel" width="60%">
-                    <p  class="right"><img id="working" src="../img/working.gif" style="display:none;"/></p>
+                <td width="60%">
+                    <img id="working" src="../img/working.gif" style="display:none;" class="right"/>
                 </td>
-                <td class="panel">
+                <td>
                     <button id="validate" class="primary right">Validate TMX</button>
                 </td>
             </tr>

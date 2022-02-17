@@ -8,26 +8,23 @@
  *
  * Contributors:
  *     Maxprograms - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 
-*  {
-	font-family: sans-serif;	
+* {
+	font-family: sans-serif;
 }
 
 body {
 	height: 100vh;
 	margin: 0px;
-	padding: 0px;
-	background: #2d2d2e ;
+	padding: 8px;
+	background: #2d2d2e;
 }
 
 .panel {
-	background: #2d2d2e ;
-	padding-left: 5px;
-	padding-right: 5px;
-	padding-top: 2px;
-	padding-bottom: 2px;
-	border:none;
+	background: #2d2d2e;
+	padding: 8px;
+	border: none;
 	margin: 0px;
 }
 
@@ -45,12 +42,12 @@ hr {
 
 h1 {
 	color: #cdcdcd;
-	font-family: sans-serif;	
-	padding: 2px;	
+	font-family: sans-serif;
+	padding: 2px;
 	font-size: 1em;
 	font-weight: lighter;
 	white-space: nowrap;
-	margin:3px;
+	margin: 3px;
 }
 
 img {
@@ -58,13 +55,12 @@ img {
 	background: #2d2d2e;
 	padding: 0px;
 	margin: 0px;
-	margin-right: 3px;
 }
 
 label {
 	color: #bdbdbd;
-	font-family: sans-serif;	
-	padding: 3px;	
+	font-family: sans-serif;
+	padding: 3px;
 	font-size: 0.8em;
 	white-space: nowrap;
 }
@@ -84,20 +80,17 @@ p {
 }
 
 input [type="text"] {
-	font-family: sans-serif;	
+	font-family: sans-serif;
 	font-size: 1.2em;
 	margin-bottom: 2px;
-	padding:2px;
+	padding: 2px;
 	width: 100%;
 }
 
-input.fill {
-    width: 100%;
-}
-
-select.fill {
+.fill {
 	width: 100%;
 }
+
 
 div {
 	margin: 0px;
@@ -106,36 +99,26 @@ div {
 }
 
 button {
-	background: #bebbb8 ;
-	padding: 2px;
-	font-family: sans-serif;	
-	border:none;
+	background: #bebbb8;
+	padding: 4px 8px;
+	font-family: sans-serif;
+	border: none;
+	border-radius: 4px;
 }
 
 button.dark {
-	background: #0d47a1 ;
+	background: #0d47a1;
 	color: #eeeeee;
-	padding-top: 3px;
-	padding-bottom:3px;
-	padding-left: 4px;
-	padding-right: 4px;	
 }
 
 button.disabled {
 	background: #979593;
 	color: #bbbbbb;
-	padding-top: 3px;
-	padding-bottom:3px;
-	padding-left: 4px;
-	padding-right: 4px;	
 }
 
 button.primary {
 	background: #1e88e5;
 	color: #eeeeee;
-	padding: 5px;
-	margin: 3px;
-	border-radius: 2px;
 }
 
 button.primary:hover {
@@ -147,55 +130,45 @@ button.dark:hover {
 }
 
 button:hover {
-	background: #979593 ;
+	background: #979593;
 	border: none;
 }
 
 table {
 	width: 100%;
-	border: 1px solid #666666;
-	border-collapse: collapse;
+	border: none;
 	margin: 0px;
 	padding: 0px;
 	overflow-y: auto;
 }
 
-table.panel {
-	width: 100%;
-	border: none;
-}
-
 .icon {
-	height: 16px; 
-	margin-right: 5px; 
+	height: 16px;
+	margin-right: 5px;
 	vertical-align: bottom;
 }
 
 .icon.right {
-	height: 16px; 
-	margin-left: 5px; 
+	height: 16px;
+	margin-left: 5px;
 	margin-right: 0px;
 	vertical-align: bottom;
 }
 
 th {
-	font-family: sans-serif;	
+	font-family: sans-serif;
 	font-weight: bold;
 	background: #cccccc;
 	text-align: center;
-	border: 1px solid #bbbbbb;
+	border: none;
 	padding: 3px;
 	vertical-align: top;
 }
 
 td {
-	border: 1px solid #bbbbbb;
+	border: none;
 	padding: 5px;
-	vertical-align: top;
-}
-
-td.panel.fill {
-	width: 100%;
+	vertical-align: middle;
 }
 
 .highlight {

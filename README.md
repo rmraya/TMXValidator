@@ -20,6 +20,8 @@ This version of TMXValidator does not need to load the complete file in memory a
 
 Version | Comment | Release Date
 --------|---------|-------------
+2.3.0 | Updated code and libraries | February 17, 2022
+2.2.0 | Updated libraries and TypeScript code | January 2, 2021
 2.1.0 | Added UI written in TypeScript and improved validation | February 5, 2020
 2.0.2 | Switched to ant for building and updated OpenXLIFF| August 8, 2019
 2.0.1 | Fixed date validation and updated libraries | June 24, 2019
@@ -29,15 +31,15 @@ Ready to use installers are available at https://www.maxprograms.com/products/tm
 
 ## Requirements
 
-- JDK 11 or newer is required for compiling and building. Get it from [AdoptOpenJDK](https://adoptopenjdk.net/).
-- Apache Ant 1.10.7 or newer. Get it from [https://ant.apache.org/](https://ant.apache.org/)
-- Node.js 12.14.0 LTS or newer. Get it from [https://nodejs.org/](https://nodejs.org/)
-- TypeScript 3.9.3 or newer. Get it from [https://www.typescriptlang.org/](https://www.typescriptlang.org/)
+- JDK 17 or newer is required for compiling and building. Get it from [Adoptium](https://adoptium.net/).
+- Apache Ant 1.10.12 or newer. Get it from [https://ant.apache.org/](https://ant.apache.org/)
+- Node.js 16.14.0 LTS or newer. Get it from [https://nodejs.org/](https://nodejs.org/)
+- TypeScript 4.5.5 or newer. Get it from [https://www.typescriptlang.org/](https://www.typescriptlang.org/)
 
 ## Building
 
 - Checkout this repository.
-- Point your `JAVA_HOME` environment variable to JDK 11
+- Point your `JAVA_HOME` environment variable to JDK 17
 - Run `ant` to compile the Java code
 - Run `npm install` to download and install NodeJS dependencies
 - Run `npm start` to launch TMXValidator

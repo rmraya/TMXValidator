@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005-2021 Maxprograms.
+ * Copyright (c) 2005-2022 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -27,6 +27,7 @@ import org.xml.sax.SAXException;
 
 import com.maxprograms.languages.RegistryParser;
 import com.maxprograms.xml.Attribute;
+import com.maxprograms.xml.Catalog;
 import com.maxprograms.xml.Document;
 import com.maxprograms.xml.Element;
 import com.maxprograms.xml.IContentHandler;
@@ -414,5 +415,10 @@ public class TMXValidatingHandler implements IContentHandler {
 
 	public String getVersion() {
 		return version;
+	}
+
+	@Override
+	public void setCatalog(Catalog arg0) {
+		// do nothing
 	}
 }
