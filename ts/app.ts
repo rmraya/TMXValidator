@@ -138,7 +138,7 @@ class TMXValidator {
         var about = new BrowserWindow({
             parent: TMXValidator.mainWindow,
             width: 280,
-            height: 280,
+            height: 290,
             minimizable: false,
             maximizable: false,
             resizable: false,
@@ -147,7 +147,8 @@ class TMXValidator {
             backgroundColor: '#2d2d2e',
             webPreferences: {
                 nodeIntegration: true,
-                contextIsolation: false
+                contextIsolation: false,
+                nativeWindowOpen: true
             }
         });
         about.loadURL('file://' + app.getAppPath() + '/html/about.html');
@@ -158,14 +159,16 @@ class TMXValidator {
     static createWindows() {
         TMXValidator.mainWindow = new BrowserWindow({
             width: 560,
-            height: 170,
+            height: 180,
             show: false,
             maximizable: false,
             icon: 'img/tmxvalidator.png',
             backgroundColor: '#2d2d2e',
+            darkTheme:true,
             webPreferences: {
                 nodeIntegration: true,
-                contextIsolation: false
+                contextIsolation: false,
+                nativeWindowOpen: true
             }
         });
         TMXValidator.mainWindow.setMenu(null);
