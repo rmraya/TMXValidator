@@ -45,8 +45,7 @@ class TMXValidator {
         TMXValidator.ls.stderr.on('data', (data) => {
             console.error(`stderr: ${data}`);
         });
-        execFileSync('bin/java', ['--module-path', 'lib', '-m', 'openxliff/com.maxprograms.server.CheckURL', 'http://localhost:8010/ValidationServer'], { cwd: app.getAppPath() });
-        
+        execFileSync('bin/java', ['--module-path', 'lib', '-m', 'tmxvalidator/com.maxprograms.server.CheckURL', 'http://localhost:8010/ValidationServer'], { cwd: app.getAppPath() });
         app.on('ready', () => {
             TMXValidator.createWindows();
             TMXValidator.mainWindow.show();
@@ -147,8 +146,7 @@ class TMXValidator {
             backgroundColor: '#2d2d2e',
             webPreferences: {
                 nodeIntegration: true,
-                contextIsolation: false,
-                nativeWindowOpen: true
+                contextIsolation: false
             }
         });
         about.loadURL('file://' + app.getAppPath() + '/html/about.html');
@@ -167,8 +165,7 @@ class TMXValidator {
             darkTheme:true,
             webPreferences: {
                 nodeIntegration: true,
-                contextIsolation: false,
-                nativeWindowOpen: true
+                contextIsolation: false
             }
         });
         TMXValidator.mainWindow.setMenu(null);

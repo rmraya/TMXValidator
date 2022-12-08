@@ -13,8 +13,8 @@ package com.maxprograms.tmxvalidation;
 
 public class Constants {
 
-	public static final String VERSION="2.3.0";
-	public static final String BUILD="20220217_1413";
+	public static final String VERSION="2.4.0";
+	public static final String BUILD="202212_0908";
 
 	public static final String SUCCESS = "Success";
 	public static final String ERROR = "Error";

@@ -11,6 +11,7 @@
  *******************************************************************************/ 
 module tmxvalidator {
 	
+	exports com.maxprograms.server;
 	exports com.maxprograms.tmxvalidation;
 	
 	requires transitive openxliff;
