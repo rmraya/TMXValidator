@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005-2022 Maxprograms.
+ * Copyright (c) 2005-2023 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -8,7 +8,7 @@
  *
  * Contributors:
  *     Maxprograms - initial API and implementation
- *******************************************************************************/ 
+ *******************************************************************************/
 package com.maxprograms.tmxvalidation;
 
 import java.io.IOException;
@@ -304,50 +304,42 @@ public class TMXValidatingHandler implements IContentHandler {
 			}
 			int day = Integer.parseInt("" + date.charAt(6) + date.charAt(7));
 			switch (month) {
-			case 1:
-			case 3:
-			case 5:
-			case 7:
-			case 8:
-			case 10:
-			case 12:
-				if (day < 1 || day > 31) {
-					return false;
-				}
-				break;
-			case 4:
-			case 6:
-			case 9:
-			case 11:
-				if (day < 1 || day > 30) {
-					return false;
-				}
-				break;
-			case 2:
-				// check for leap years
-				if (year % 4 == 0) {
-					if (year % 100 == 0) {
-						// not all centuries are leap years
-						if (year % 400 == 0) {
-							if (day < 1 || day > 29) {
-								return false;
-							}
-						} else {
-							// not leap year
-							if (day < 1 || day > 28) {
-								return false;
-							}
-						}
-					}
-					if (day < 1 || day > 29) {
+				case 1, 3, 5, 7, 8, 10, 12 -> {
+					if (day < 1 || day > 31) {
 						return false;
 					}
-				} else if (day < 1 || day > 28) {
+				}
+				case 4, 6, 9, 11 -> {
+					if (day < 1 || day > 30) {
+						return false;
+					}
+				}
+				case 2 -> {
+					// check for leap years
+					if (year % 4 == 0) {
+						if (year % 100 == 0) {
+							// not all centuries are leap years
+							if (year % 400 == 0) {
+								if (day < 1 || day > 29) {
+									return false;
+								}
+							} else {
+								// not leap year
+								if (day < 1 || day > 28) {
+									return false;
+								}
+							}
+						}
+						if (day < 1 || day > 29) {
+							return false;
+						}
+					} else if (day < 1 || day > 28) {
+						return false;
+					}
+				}
+				default -> {
 					return false;
 				}
-				break;
-			default: 
-				return false;
 			}
 			int hour = Integer.parseInt("" + date.charAt(9) + date.charAt(10));
 			if (hour < 0 || hour > 23) {

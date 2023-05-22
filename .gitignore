@@ -6,6 +6,7 @@
 /sonarqube.sh
 /node_modules
 /js
+/target
 package-lock.json
 /out
 /lib

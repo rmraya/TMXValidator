@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005-2022 Maxprograms.
+ * Copyright (c) 2005-2023 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -108,7 +108,7 @@ class TMXValidator {
         TMXValidator.sendRequest(arg,
             function success(data: any) {
                 TMXValidator.currentStatus = data;
-                var intervalObject = setInterval(function () {
+                let intervalObject = setInterval(function () {
                     if (TMXValidator.currentStatus.status === 'Success') {
                         // ignore status from validation request
                     } else if (TMXValidator.currentStatus.status === 'Completed') {
@@ -134,7 +134,7 @@ class TMXValidator {
     }
 
     showAbout(): void {
-        var about = new BrowserWindow({
+        let about = new BrowserWindow({
             parent: TMXValidator.mainWindow,
             width: 280,
             height: 290,
@@ -162,7 +162,7 @@ class TMXValidator {
             maximizable: false,
             icon: 'img/tmxvalidator.png',
             backgroundColor: '#2d2d2e',
-            darkTheme:true,
+            darkTheme: true,
             webPreferences: {
                 nodeIntegration: true,
                 contextIsolation: false
@@ -191,7 +191,7 @@ class TMXValidator {
                 if (res.statusCode != 200) {
                     error('sendRequest() error: ' + res.statusMessage);
                 }
-                var rawData: string = '';
+                let rawData: string = '';
                 res.on('data', (chunk: string) => {
                     rawData += chunk;
                 });
@@ -235,5 +235,8 @@ class TMXValidator {
     }
 
 }
-
-new TMXValidator();
+try {
+    new TMXValidator();
+} catch (e) {
+    console.error(e);
+}

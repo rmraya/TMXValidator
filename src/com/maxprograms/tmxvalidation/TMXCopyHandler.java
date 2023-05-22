@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005-2022 Maxprograms.
+ * Copyright (c) 2005-2023 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -131,10 +131,10 @@ public class TMXCopyHandler implements IContentHandler {
 	}
 
 	private static String cleanString(String string) {
-		String result = string.replaceAll("&", "&amp;");
-		result = result.replaceAll("<", "&lt;");
-		result = result.replaceAll(">", "&gt;");
-		result = result.replaceAll("\"", "&quot;");
+		String result = string.replace("&", "&amp;");
+		result = result.replace("<", "&lt;");
+		result = result.replace(">", "&gt;");
+		result = result.replace("\"", "&quot;");
 		return result;
 	}
 

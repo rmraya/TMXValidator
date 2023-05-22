@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005-2022 Maxprograms.
+ * Copyright (c) 2005-2023 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -22,6 +22,7 @@ import java.lang.System.Logger.Level;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.Hashtable;
+import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -29,6 +30,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.xml.sax.SAXException;
 
@@ -37,8 +39,8 @@ public class ValidationServer implements HttpHandler {
 	private static final Logger LOGGER = System.getLogger(ValidationServer.class.getName());
 
 	private HttpServer server;
-	private Hashtable<String, String> running;
-	private Hashtable<String, JSONObject> validationResults;
+	private Map<String, String> running;
+	private Map<String, JSONObject> validationResults;
 
 	public ValidationServer(int port) throws IOException {
 		running = new Hashtable<>();
@@ -75,60 +77,60 @@ public class ValidationServer implements HttpHandler {
 
 	@Override
 	public void handle(HttpExchange t) throws IOException {
-		String request = "";
-		try (InputStream is = t.getRequestBody()) {
-			request = readRequestBody(is);
-		}
-
 		JSONObject json = null;
+
 		String response = "";
 		String command = "version";
 		try {
-			if (!request.isBlank()) {
-				json = new JSONObject(request);
-				command = json.getString("command");
+			try (InputStream is = t.getRequestBody()) {
+				json = readRequestBody(is);
 			}
-			if ("version".equals(command)) {
-				JSONObject result = new JSONObject();
-				result.put("version", Constants.VERSION);
-				result.put("build", Constants.BUILD);
-				response = result.toString();
-			} else if ("validate".equals(command)) {
-				response = validate(json);
-			} else if ("status".equals(command)) {
-				response = getStatus(json);
-			} else if ("validationResult".equals(command)) {
-				response = getValidationResult(json);
+			if (json.has("command")) {
+				command = json.getString("command");
+				if ("version".equals(command)) {
+					JSONObject result = new JSONObject();
+					result.put("version", Constants.VERSION);
+					result.put("build", Constants.BUILD);
+					response = result.toString();
+				} else if ("validate".equals(command)) {
+					response = validate(json);
+				} else if ("status".equals(command)) {
+					response = getStatus(json);
+				} else if ("validationResult".equals(command)) {
+					response = getValidationResult(json);
+				} else {
+					response = "{\"reason\":\"Unknown command\"}";
+				}
 			} else {
-				response = "{\"reason\":\"Unknown command\"}";
+				response = "{\"reason\":\"Missing command\"}";
 			}
 			t.getResponseHeaders().add("content-type", "application/json; charset=utf-8");
 			byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
 			t.sendResponseHeaders(200, bytes.length);
 			try (OutputStream os = t.getResponseBody()) {
 				os.write(bytes);
-				os.flush();
 			}
-
-		} catch (IOException e) {
+		} catch (IOException | JSONException e) {
 			response = e.getMessage();
 			t.sendResponseHeaders(500, response.length());
 			try (OutputStream os = t.getResponseBody()) {
 				os.write(response.getBytes());
-				os.flush();
 			}
 		}
 	}
 
-	private static String readRequestBody(InputStream is) throws IOException {
+	private static JSONObject readRequestBody(InputStream is) throws IOException, JSONException {
 		StringBuilder request = new StringBuilder();
 		try (BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))) {
 			String line;
 			while ((line = rd.readLine()) != null) {
+				if (!request.isEmpty()) {
+					request.append('\n');
+				}
 				request.append(line);
 			}
 		}
-		return request.toString();
+		return new JSONObject(request.toString());
 	}
 
 	private String getStatus(JSONObject json) {
