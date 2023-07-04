@@ -20,6 +20,7 @@ This version of TMXValidator does not need to load the whole file into memory an
 
 Version | Comment | Release Date
 --------|---------|-------------
+2.6.0 | Tighter checking of "x" and "i" attributes and language codes | July 4, 2023
 2.5.0 | Updated code and libraries | May 22, 2023
 2.4.0 | Updated libraries | December 8, 2022
 2.3.0 | Updated code and libraries | February 17, 2022
@@ -36,7 +37,7 @@ Ready to use installers are available at [https://www.maxprograms.com/products/t
 - JDK 17 or newer is required for compiling and building. Get it from [Adoptium](https://adoptium.net/).
 - Apache Ant 1.10.12 or newer. Get it from [https://ant.apache.org/](https://ant.apache.org/)
 - Node.js 18.16.0 LTS or newer. Get it from [https://nodejs.org/](https://nodejs.org/)
-- TypeScript 5.0.4 or newer. Get it from [https://www.typescriptlang.org/](https://www.typescriptlang.org/)
+- TypeScript 5.1.6 or newer. Get it from [https://www.typescriptlang.org/](https://www.typescriptlang.org/)
 
 ## Building
 

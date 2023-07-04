@@ -16,16 +16,20 @@ import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.text.MessageFormat;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.Stack;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 
-import com.maxprograms.languages.RegistryParser;
+import com.maxprograms.languages.Language;
+import com.maxprograms.languages.LanguageUtils;
 import com.maxprograms.xml.Attribute;
 import com.maxprograms.xml.Catalog;
 import com.maxprograms.xml.Document;
@@ -37,9 +41,9 @@ public class TMXValidatingHandler implements IContentHandler {
 	public static final String RELOAD = "Reload with DTD";
 	private Element current;
 	Stack<Element> stack;
+	Map<String, Set<String>> xMap;
 	private boolean inCDATA = false;
 	private String srcLang;
-	private RegistryParser langParser;
 	private Element root;
 
 	private static final Logger LOGGER = System.getLogger(TMXValidatingHandler.class.getName());
@@ -49,6 +53,7 @@ public class TMXValidatingHandler implements IContentHandler {
 	private String version;
 	private String publicId;
 	private String systemId;
+	private String currentLang;
 
 	public TMXValidatingHandler() {
 		stack = new Stack<>();
@@ -165,6 +170,40 @@ public class TMXValidatingHandler implements IContentHandler {
 				}
 			}
 		}
+		if ("tu".equals(qName)) {
+			xMap = new Hashtable<>();
+		}
+		if ("tuv".equals(qName)) {
+			currentLang = current.hasAttribute("xml:lang") ? current.getAttributeValue("xml:lang")
+					: current.getAttributeValue("lang");
+		}
+		if (current.hasAttribute("x")
+				&& ("bpt".equals(qName) || "it".equals(qName) || "ph".equals(qName) || "hi".equals(qName))) {
+			String x = current.getAttributeValue("x");
+			if (!isNumber(x)) {
+				MessageFormat mf = new MessageFormat("Incorrect value for \"x\" attribute: ''{0}''");
+				throw new SAXException(mf.format(new Object[] { x }));
+			}
+			Set<String> set = xMap.get(currentLang);
+			if (set == null) {
+				set = new HashSet<>();
+				xMap.put(currentLang, set);
+			}
+			if (set.contains(qName + x)) {
+				MessageFormat mf = new MessageFormat("Duplicated value for \"x\" attribute: ''{0}'' in ''{1}''");
+				throw new SAXException(mf.format(new Object[] { x, qName }));
+			}
+			set.add(qName + x);
+		}
+	}
+
+	private boolean isNumber(String s) {
+		try {
+			Double.parseDouble(s);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
 	}
 
 	@Override
@@ -189,6 +228,10 @@ public class TMXValidatingHandler implements IContentHandler {
 					throw new SAXException("Error validating  language");
 				}
 			}
+			if (name.equals("usagecount") && !isNumber(value)) {
+				MessageFormat mf = new MessageFormat("Invalid value for \"usagecount\": ''{0}''");
+				throw new SAXException(mf.format(new Object[] { value }));
+			}
 			if ((name.equals("lastusagedate") || name.equals("changedate") || name.equals("creationdate"))
 					&& !checkDate(value)) {
 				MessageFormat mf = new MessageFormat("Invalid date format ''{0}''");
@@ -201,14 +244,14 @@ public class TMXValidatingHandler implements IContentHandler {
 			ids = new Hashtable<>();
 			recurse(current);
 			if (balance != 0) {
-				throw new SAXException("Unbalanced number of <bpt>/<ept> elements.\n\n" + current.toString());
+				throw new SAXException("Unbalanced number of <bpt>/<ept> elements \n\n" + current.toString());
 			}
 			if (ids.size() > 0) {
 				Enumeration<String> en = ids.keys();
 				while (en.hasMoreElements()) {
 					if (!ids.get(en.nextElement()).equals("0")) {
 						throw new SAXException(
-								"<bpt>/<ept> element without matching <ept>/<bpt>. \n\n" + current.toString());
+								"<bpt>/<ept> element without matching <ept>/<bpt> \n\n" + current.toString());
 					}
 				}
 			}
@@ -216,6 +259,21 @@ public class TMXValidatingHandler implements IContentHandler {
 		if (localName.equals("tu")) {
 			if (!srcLang.equals("*all*")) {
 				checkLanguageVariants(current);
+			}
+			Set<String> xKeys = xMap.keySet();
+			if (!xKeys.isEmpty()) {
+				if (current.getChildren("tuv").size() != xKeys.size()) {
+					throw new SAXException("Incorrect \"x\" matching");
+				}
+				Set<String> xValues = xMap.get(currentLang);
+				Iterator<String> it = xKeys.iterator();
+				while (it.hasNext()) {
+					String key = it.next();
+					Set<String> langSet = xMap.get(key);
+					if (langSet.size() != xValues.size() || !langSet.containsAll(xValues)) {
+						throw new SAXException("Incorrect \"x\" matching");
+					}
+				}
 			}
 			current = null;
 			stack.clear();
@@ -275,11 +333,11 @@ public class TMXValidatingHandler implements IContentHandler {
 			// custom language code
 			return true;
 		}
-
-		if (langParser == null) {
-			langParser = new RegistryParser();
+		Language language = LanguageUtils.getLanguage(lang);
+		if (language == null) {
+			return false;
 		}
-		return !langParser.getTagDescription(lang).isEmpty();
+		return language.getCode().equals(lang);
 	}
 
 	private static boolean checkDate(String date) {
@@ -368,6 +426,10 @@ public class TMXValidatingHandler implements IContentHandler {
 				balance += 1;
 				if (version.equals("1.4")) {
 					String s = e.getAttributeValue("i");
+					if (!isNumber(s)) {
+						throw new SAXException("Invalid value for attribute 'i' in a <bpt> element \n\n"
+								+ element.toString());
+					}
 					if (!ids.containsKey(s)) {
 						ids.put(s, "1");
 					} else {
@@ -375,7 +437,7 @@ public class TMXValidatingHandler implements IContentHandler {
 							ids.put(s, "0");
 						} else {
 							throw new SAXException(
-									"Duplicated value for attribute 'i' in a <bpt> element. \n\n" + element.toString());
+									"Duplicated value for attribute 'i' in a <bpt> element \n\n" + element.toString());
 						}
 					}
 				}
@@ -384,13 +446,17 @@ public class TMXValidatingHandler implements IContentHandler {
 				balance -= 1;
 				if (version.equals("1.4")) {
 					String s = e.getAttributeValue("i");
+					if (!isNumber(s)) {
+						throw new SAXException("Invalid value for attribute 'i' in a <ept> element \n\n"
+								+ element.toString());
+					}
 					if (!ids.containsKey(s)) {
 						ids.put(s, "-1");
 					} else {
 						if (ids.get(s).equals("1")) {
 							ids.put(s, "0");
 						} else {
-							throw new SAXException("Mismatched value for attribute 'i' in a <bpt>/<ept> element.\n\n"
+							throw new SAXException("Mismatched value for attribute 'i' in a <bpt>/<ept> element \n\n"
 									+ element.toString());
 						}
 					}
