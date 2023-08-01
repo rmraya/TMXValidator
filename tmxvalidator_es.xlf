@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff srcLang="en" xmlns:mtc="urn:oasis:names:tc:xliff:matches:2.0" version="2.0" xmlns:mda="urn:oasis:names:tc:xliff:metadata:2.0" trgLang="es" xmlns="urn:oasis:names:tc:xliff:document:2.0">
+  <file original="com/maxprograms/tmxvalidation/tmxvalidation.properties" id="0">
+    <skeleton>VE1YVmFsaWRhdGluZ0hhbmRsZXIuMD0lJSUwJSUlClRNWFZhbGlkYXRpbmdIYW5kbGVyLjE9JSUl
+MSUlJQpUTVhWYWxpZGF0aW5nSGFuZGxlci4xMD0lJSUyJSUlClRNWFZhbGlkYXRpbmdIYW5kbGVy
+LjExPSUlJTMlJSUKVE1YVmFsaWRhdGluZ0hhbmRsZXIuMTI9JSUlNCUlJQpUTVhWYWxpZGF0aW5n
+SGFuZGxlci4xMz0lJSU1JSUlClRNWFZhbGlkYXRpbmdIYW5kbGVyLjE0PSUlJTYlJSUKVE1YVmFs
+aWRhdGluZ0hhbmRsZXIuMTU9JSUlNyUlJQpUTVhWYWxpZGF0aW5nSGFuZGxlci4xNj0lJSU4JSUl
+ClRNWFZhbGlkYXRpbmdIYW5kbGVyLjE3PSUlJTklJSUKVE1YVmFsaWRhdGluZ0hhbmRsZXIuMTg9
+JSUlMTAlJSUKVE1YVmFsaWRhdGluZ0hhbmRsZXIuMTk9JSUlMTElJSUKVE1YVmFsaWRhdGluZ0hh
+bmRsZXIuMj0lJSUxMiUlJQpUTVhWYWxpZGF0aW5nSGFuZGxlci4yMD0lJSUxMyUlJQpUTVhWYWxp
+ZGF0aW5nSGFuZGxlci4yMT0lJSUxNCUlJQpUTVhWYWxpZGF0aW5nSGFuZGxlci4yMj0lJSUxNSUl
+JQpUTVhWYWxpZGF0aW5nSGFuZGxlci4zPSUlJTE2JSUlClRNWFZhbGlkYXRpbmdIYW5kbGVyLjQ9
+JSUlMTclJSUKVE1YVmFsaWRhdGluZ0hhbmRsZXIuNT0lJSUxOCUlJQpUTVhWYWxpZGF0aW5nSGFu
+ZGxlci42PSUlJTE5JSUlClRNWFZhbGlkYXRpbmdIYW5kbGVyLjc9JSUlMjAlJSUKVE1YVmFsaWRh
+dGluZ0hhbmRsZXIuOD0lJSUyMSUlJQpUTVhWYWxpZGF0aW5nSGFuZGxlci45PSUlJTIyJSUlClRN
+WFZhbGlkYXRvci4wPSUlJTIzJSUlClRNWFZhbGlkYXRvci4xPSUlJTI0JSUlClRNWFZhbGlkYXRv
+ci4yPSUlJTI1JSUlClZhbGlkYXRpb25TZXJ2ZXIuMD0lJSUyNiUlJQpWYWxpZGF0aW9uU2VydmVy
+LjE9JSUlMjclJSUKVmFsaWRhdGlvblNlcnZlci4yPSUlJTI4JSUlClZhbGlkYXRpb25TZXJ2ZXIu
+Mz0lJSUyOSUlJQpWYWxpZGF0aW9uU2VydmVyLjQ9JSUlMzAlJSUKVmFsaWRhdGlvblNlcnZlci41
+PSUlJTMxJSUlClZhbGlkYXRpb25TZXJ2ZXIuNj0lJSUzMiUlJQpWYWxpZGF0aW9uU2VydmVyLjc9
+JSUlMzMlJSUKVmFsaWRhdGlvblNlcnZlci44PSUlJTM0JSUlCg==</skeleton>
+    <mda:metadata>
+      <mda:metaGroup category="format">
+        <mda:meta type="datatype">javapropertyresourcebundle</mda:meta>
+      </mda:metaGroup>
+      <mda:metaGroup category="tool">
+        <mda:meta type="tool-id">OpenXLIFF</mda:meta>
+        <mda:meta type="tool-name">OpenXLIFF Filters</mda:meta>
+        <mda:meta type="tool-version">3.11.0 20230726_0946</mda:meta>
+      </mda:metaGroup>
+      <mda:metaGroup category="PI">
+        <mda:meta type="encoding">UTF-8</mda:meta>
+      </mda:metaGroup>
+    </mda:metadata>
+    <unit id="0">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="0">
+        <source xml:space="preserve">Reload with DTD</source>
+        <target xml:space="preserve">Recargar con DTD</target>
+      </segment>
+    </unit>
+    <unit id="1">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="1">
+        <source xml:space="preserve">TMX version is missing</source>
+        <target xml:space="preserve">Falta versión de TMX</target>
+      </segment>
+    </unit>
+    <unit id="2">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.10</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="2">
+        <source xml:space="preserve">Error validating language</source>
+        <target xml:space="preserve">Error al validar idioma</target>
+      </segment>
+    </unit>
+    <unit id="3">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.11</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="3">
+        <source xml:space="preserve">Invalid value for "usagecount": ''{0}''</source>
+        <target xml:space="preserve">Valor incorrecto para "usagecount": ''{0}''</target>
+      </segment>
+    </unit>
+    <unit id="4">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.12</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="4">
+        <source xml:space="preserve">Invalid date format ''{0}''</source>
+        <target xml:space="preserve">Formato de fecha no válido ''{0}''</target>
+      </segment>
+    </unit>
+    <unit id="5">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.13</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="5">
+        <source xml:space="preserve">Unbalanced number of &lt;bpt&gt;/&lt;ept&gt; elements
+
+{0}</source>
+        <target xml:space="preserve">Número desequilibrado de elementos &lt;bpt&gt;/&lt;ept&gt;
+
+{0}</target>
+      </segment>
+    </unit>
+    <unit id="6">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.14</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="6">
+        <source xml:space="preserve">&lt;bpt&gt;/&lt;ept&gt; element without matching &lt;ept&gt;/&lt;bpt&gt;
+
+{0}</source>
+        <target xml:space="preserve">Elemento &lt;bpt&gt;/&lt;ept&gt; sin coincidencia &lt;ept&gt;/&lt;bpt&gt;
+
+{0}</target>
+      </segment>
+    </unit>
+    <unit id="7">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.15</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="7">
+        <source xml:space="preserve">Incorrect "x" matching</source>
+        <target xml:space="preserve">Correspondencia "x" incorrecta</target>
+      </segment>
+    </unit>
+    <unit id="8">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.16</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="8">
+        <source xml:space="preserve">Incorrect "x" matching</source>
+        <target xml:space="preserve">Correspondencia "x" incorrecta</target>
+      </segment>
+    </unit>
+    <unit id="9">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.17</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="9">
+        <source xml:space="preserve">&lt;tuv&gt; without language attribute</source>
+        <target xml:space="preserve">&lt;tuv&gt; sin atributo de idioma</target>
+      </segment>
+    </unit>
+    <unit id="10">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.18</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="10">
+        <source xml:space="preserve">&lt;tu&gt; element lacks &lt;tuv&gt; with language set to ''{0}''</source>
+        <target xml:space="preserve">&lt;tu&gt; no tiene &lt;tuv&gt; con idioma establecido en ''{0}''</target>
+      </segment>
+    </unit>
+    <unit id="11">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.19</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="11">
+        <source xml:space="preserve">Invalid value for attribute 'i' in a &lt;bpt&gt; element
+
+{0}</source>
+        <target xml:space="preserve">Valor incorrecto para para el atributo 'i' en un elemento &lt;bpt&gt;
+
+{0}</target>
+      </segment>
+    </unit>
+    <unit id="12">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="12">
+        <source xml:space="preserve">Incorrect TMX version: {0}</source>
+        <target xml:space="preserve">Versión incorrecta de TMX: {0}</target>
+      </segment>
+    </unit>
+    <unit id="13">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.20</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="13">
+        <source xml:space="preserve">Duplicated value for attribute 'i' in a &lt;bpt&gt; element
+
+{0}</source>
+        <target xml:space="preserve">Valor duplicado para para el atributo 'i' en un elemento &lt;bpt&gt;
+
+{0}</target>
+      </segment>
+    </unit>
+    <unit id="14">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.21</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="14">
+        <source xml:space="preserve">Invalid value for attribute 'i' in a &lt;ept&gt; element
+
+{0}</source>
+        <target xml:space="preserve">Valor incorrecto para para el atributo 'i' en un elemento &lt;ept&gt;
+
+{0}</target>
+      </segment>
+    </unit>
+    <unit id="15">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.22</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="15">
+        <source xml:space="preserve">Mismatched value for attribute 'i' in a &lt;bpt&gt;/&lt;ept&gt; element
+
+{0}</source>
+        <target xml:space="preserve">Valor no coincidente para el atributo 'i' en un elemento &lt;bpt&gt;/&lt;ept&gt;
+
+{0}</target>
+      </segment>
+    </unit>
+    <unit id="16">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="16">
+        <source xml:space="preserve">Selected file is not a TMX document</source>
+        <target xml:space="preserve">El archivo seleccionado no es un documento TMX</target>
+      </segment>
+    </unit>
+    <unit id="17">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="17">
+        <source xml:space="preserve">Source language not declared</source>
+        <target xml:space="preserve">Idioma origen no declarado</target>
+      </segment>
+    </unit>
+    <unit id="18">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="18">
+        <source xml:space="preserve">Invalid source language ''{0}''</source>
+        <target xml:space="preserve">Idioma de origen no válido ''{0}''</target>
+      </segment>
+    </unit>
+    <unit id="19">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="19">
+        <source xml:space="preserve">Error validating source language</source>
+        <target xml:space="preserve">Error al validar idioma origen</target>
+      </segment>
+    </unit>
+    <unit id="20">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="20">
+        <source xml:space="preserve">Invalid value for "x" attribute: ''{0}''</source>
+        <target xml:space="preserve">Valor incorrecto para el atributo "x": ''{0}''</target>
+      </segment>
+    </unit>
+    <unit id="21">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.8</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="21">
+        <source xml:space="preserve">Duplicated value for "x" attribute: ''{0}'' in ''{1}''</source>
+        <target xml:space="preserve">Valor duplicado para el atributo "x": ''{0}'' en ''{1}''</target>
+      </segment>
+    </unit>
+    <unit id="22">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidatingHandler.9</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="22">
+        <source xml:space="preserve">Invalid language code ''{0}''</source>
+        <target xml:space="preserve">Código de idioma no válido ''{0}''</target>
+      </segment>
+    </unit>
+    <unit id="23">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidator.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="23">
+        <source xml:space="preserve">Version: {0} Build: {1}</source>
+        <target xml:space="preserve">Versión: {0} Compilación: {1}</target>
+      </segment>
+    </unit>
+    <unit id="24">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidator.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="24">
+        <source xml:space="preserve">Selected file is valid TMX</source>
+        <target xml:space="preserve">El archivo seleccionado es TMX válido</target>
+      </segment>
+    </unit>
+    <unit id="25">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">TMXValidator.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="25">
+        <source xml:space="preserve">
+
+Usage:
+
+    {0} [-help] [-version] -tmx tmxFile
+
+Where:
+
+    -help:       (optional) Display this help information and exit
+    -version:    (optional) Display version &amp; build information and exit
+    -tmx:        TMX file to validate
+
+</source>
+        <target xml:space="preserve">
+
+Uso:
+
+    {0} [-help] [-version] -tmx tmxFile
+
+Donde:
+
+    -help:       (opcional) Mostrar esta información de ayuda y salir
+    -version: (opcional) Mostrar información de versión y salir
+    -tmx:        Archivo TMX a validar
+
+</target>
+      </segment>
+    </unit>
+    <unit id="26">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ValidationServer.0</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="26">
+        <source xml:space="preserve">Version: {0} Build: {1}</source>
+        <target xml:space="preserve">Versión: {0} Compilación: {1}</target>
+      </segment>
+    </unit>
+    <unit id="27">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ValidationServer.1</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="27">
+        <source xml:space="preserve">Validation server started</source>
+        <target xml:space="preserve">Servidor de validación iniciado</target>
+      </segment>
+    </unit>
+    <unit id="28">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ValidationServer.2</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="28">
+        <source xml:space="preserve">Unknown command</source>
+        <target xml:space="preserve">Comando desconocido</target>
+      </segment>
+    </unit>
+    <unit id="29">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ValidationServer.3</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="29">
+        <source xml:space="preserve">Missing command</source>
+        <target xml:space="preserve">Falta comando</target>
+      </segment>
+    </unit>
+    <unit id="30">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ValidationServer.4</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="30">
+        <source xml:space="preserve">Missing 'process' parameter</source>
+        <target xml:space="preserve">Falta el parámetro 'process'</target>
+      </segment>
+    </unit>
+    <unit id="31">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ValidationServer.5</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="31">
+        <source xml:space="preserve">Null 'status'</source>
+        <target xml:space="preserve">'status' nulo</target>
+      </segment>
+    </unit>
+    <unit id="32">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ValidationServer.6</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="32">
+        <source xml:space="preserve">Validation result not found</source>
+        <target xml:space="preserve">Resultado de validación no encontrado</target>
+      </segment>
+    </unit>
+    <unit id="33">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ValidationServer.7</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="33">
+        <source xml:space="preserve">Missing 'file' parameter</source>
+        <target xml:space="preserve">Falta el parámetro 'file'</target>
+      </segment>
+    </unit>
+    <unit id="34">
+      <mda:metadata>
+        <mda:metaGroup category="transUnitAttributes">
+          <mda:meta type="resname">ValidationServer.8</mda:meta>
+        </mda:metaGroup>
+      </mda:metadata>
+      <segment state="final" id="34">
+        <source xml:space="preserve">Selected file is valid TMX</source>
+        <target xml:space="preserve">El archivo seleccionado es TMX válido</target>
+      </segment>
+    </unit>
+  </file>
+</xliff>

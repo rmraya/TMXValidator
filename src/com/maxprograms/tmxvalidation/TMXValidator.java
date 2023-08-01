@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import java.nio.charset.StandardCharsets;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class TMXValidator {
 			if (sax.getMessage().equals(TMXValidatingHandler.RELOAD)) {
 				// TMX DTD was not declared
 				String version = handler.getVersion();
-				File copy = File.createTempFile("copy", ".tmx");
+				File copy = File.createTempFile("copy", ".tmx"); //$NON-NLS-1$ //$NON-NLS-2$
 				copy.deleteOnExit();
 				copyFile(file, copy, version);
 				builder.build(copy);
@@ -63,17 +64,17 @@ public class TMXValidator {
 	}
 
 	private static void copyFile(File file, File copy, String version) throws IOException, SAXException, ParserConfigurationException {
-		String systemID = "tmx14.dtd";
-		if (version.equals("1.3")) {
-			systemID = "tmx13.dtd";
-		} else if (version.equals("1.2")) {
-			systemID = "tmx12.dtd";
-		} else if (version.equals("1.1")) {
-			systemID = "tmx11.dtd";
+		String systemID = "tmx14.dtd"; //$NON-NLS-1$
+		if (version.equals("1.3")) { //$NON-NLS-1$
+			systemID = "tmx13.dtd"; //$NON-NLS-1$
+		} else if (version.equals("1.2")) { //$NON-NLS-1$
+			systemID = "tmx12.dtd"; //$NON-NLS-1$
+		} else if (version.equals("1.1")) { //$NON-NLS-1$
+			systemID = "tmx11.dtd"; //$NON-NLS-1$
 		}
 		try (FileOutputStream out = new FileOutputStream(copy)) {
-			writeString(out, "<?xml version=\"1.0\" ?>\n");
-			writeString(out, "<!DOCTYPE tmx SYSTEM \"" + systemID + "\">\n");
+			writeString(out, "<?xml version=\"1.0\" ?>\n"); //$NON-NLS-1$
+			writeString(out, "<!DOCTYPE tmx SYSTEM \"" + systemID + "\">\n"); //$NON-NLS-1$ //$NON-NLS-2$
 			SAXBuilder copyBuilder = new SAXBuilder();
 			TMXCopyHandler copyHandler = new TMXCopyHandler(out);
 			copyBuilder.setContentHandler(copyHandler);
@@ -87,18 +88,19 @@ public class TMXValidator {
 	
 	public static void main(String[] args) {
 		String[] commandLine = fixPath(args);
-		String tmx = "";
+		String tmx = ""; //$NON-NLS-1$
 		for (int i = 0; i < commandLine.length; i++) {
 			String arg = commandLine[i];
-			if (arg.equals("-version")) {
-				LOGGER.log(Level.INFO, () -> "Version: " + Constants.VERSION + " Build: " + Constants.BUILD);
+			if (arg.equals("-version")) { //$NON-NLS-1$
+				MessageFormat mf = new MessageFormat(Messages.getString("TMXValidator.0") ); //$NON-NLS-1$
+				LOGGER.log(Level.INFO, () -> mf.format(new String[] {Constants.VERSION, Constants.BUILD}));
 				return;
 			}
-			if (arg.equals("-help")) {
+			if (arg.equals("-help")) { //$NON-NLS-1$
 				help();
 				return;
 			}
-			if (arg.equals("-tmx") && (i + 1) < commandLine.length) {
+			if (arg.equals("-tmx") && (i + 1) < commandLine.length) { //$NON-NLS-1$
 				tmx = commandLine[i + 1];
 			}
 		}
@@ -109,23 +111,19 @@ public class TMXValidator {
 		try {
 			TMXValidator validator = new TMXValidator();
 			validator.validate(new File(tmx));
-			LOGGER.log(Level.INFO, "Selected file is valid TMX");
+			LOGGER.log(Level.INFO, Messages.getString("TMXValidator.1")); //$NON-NLS-1$
 		} catch (IOException | SAXException | ParserConfigurationException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 		}
 	}
 	
 	private static void help() {
-		String launcher = "   tmxvalidator.sh ";
-		if (System.getProperty("file.separator").equals("\\")) {
-			launcher = "   tmxvalidator.bat ";
+		String launcher = "tmxvalidator.sh"; //$NON-NLS-1$
+		if (System.getProperty("file.separator").equals("\\")) { //$NON-NLS-1$ //$NON-NLS-2$
+			launcher = "tmxvalidator.bat"; //$NON-NLS-1$
 		}
-		String help = "Usage:\n\n" + launcher + "[-help] [-version] -tmx tmxFile\n\n"
-				+ "Where:\n\n"
-				+ "   -help:       (optional) Display this help information and exit\n"
-				+ "   -version:    (optional) Display version & build information and exit\n"
-				+ "   -tmx:        TMX file to validate\n\n";
-		System.out.println(help);
+		MessageFormat mf = new MessageFormat(Messages.getString("TMXValidator.2")); //$NON-NLS-1$
+		System.out.println(mf.format(new String[] {launcher}));
 	}
 
 	private static String[] fixPath(String[] args) {
@@ -133,7 +131,7 @@ public class TMXValidator {
 		StringBuilder current = new StringBuilder();
 		for (int i = 0; i < args.length; i++) {
 			String arg = args[i];
-			if (arg.startsWith("-")) {
+			if (arg.startsWith("-")) { //$NON-NLS-1$
 				if (current.length() > 0) {
 					result.add(current.toString().trim());
 					current = new StringBuilder();

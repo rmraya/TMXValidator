@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tmx PUBLIC "-//LISA OSCAR:1998//DTD for Translation Memory eXchange//EN" "tmx14.dtd" >
+<tmx version="1.4">
+<header 
+      creationtool="OpenXLIFF" 
+      creationtoolversion="3.11.0" 
+      srclang="en" 
+      adminlang="en"  
+      datatype="xml" 
+      o-tmf="XLIFF" 
+      segtype="block"
+>
+</header>
+<body>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-48" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Reload with DTD</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Recargar con DTD</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-49" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>TMX version is missing</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Falta versión de TMX</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-50" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Error validating language</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Error al validar idioma</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-51" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Invalid value for "usagecount": ''{0}''</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Valor incorrecto para "usagecount": ''{0}''</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-52" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Invalid date format ''{0}''</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Formato de fecha no válido ''{0}''</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-53" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Unbalanced number of &lt;bpt&gt;/&lt;ept&gt; elements
+
+{0}</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Número desequilibrado de elementos &lt;bpt&gt;/&lt;ept&gt;
+
+{0}</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-54" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>&lt;bpt&gt;/&lt;ept&gt; element without matching &lt;ept&gt;/&lt;bpt&gt;
+
+{0}</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Elemento &lt;bpt&gt;/&lt;ept&gt; sin coincidencia &lt;ept&gt;/&lt;bpt&gt;
+
+{0}</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-55" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Incorrect "x" matching</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Correspondencia "x" incorrecta</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-56" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Incorrect "x" matching</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Correspondencia "x" incorrecta</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-57" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>&lt;tuv&gt; without language attribute</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>&lt;tuv&gt; sin atributo de idioma</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1567" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>&lt;tu&gt; element lacks &lt;tuv&gt; with language set to ''{0}''</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>&lt;tu&gt; no tiene &lt;tuv&gt; con idioma establecido en ''{0}''</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1568" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Invalid value for attribute 'i' in a &lt;bpt&gt; element
+
+{0}</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Valor incorrecto para para el atributo 'i' en un elemento &lt;bpt&gt;
+
+{0}</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1569" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Incorrect TMX version: {0}</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Versión incorrecta de TMX: {0}</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1570" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Duplicated value for attribute 'i' in a &lt;bpt&gt; element
+
+{0}</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Valor duplicado para para el atributo 'i' en un elemento &lt;bpt&gt;
+
+{0}</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1571" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Invalid value for attribute 'i' in a &lt;ept&gt; element
+
+{0}</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Valor incorrecto para para el atributo 'i' en un elemento &lt;ept&gt;
+
+{0}</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1572" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Mismatched value for attribute 'i' in a &lt;bpt&gt;/&lt;ept&gt; element
+
+{0}</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Valor no coincidente para el atributo 'i' en un elemento &lt;bpt&gt;/&lt;ept&gt;
+
+{0}</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1573" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Selected file is not a TMX document</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>El archivo seleccionado no es un documento TMX</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1574" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Source language not declared</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Idioma origen no declarado</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1575" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Invalid source language ''{0}''</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Idioma de origen no válido ''{0}''</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1576" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Error validating source language</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Error al validar idioma origen</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1598" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Invalid value for "x" attribute: ''{0}''</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Valor incorrecto para el atributo "x": ''{0}''</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1599" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Duplicated value for "x" attribute: ''{0}'' in ''{1}''</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Valor duplicado para el atributo "x": ''{0}'' en ''{1}''</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1600" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Invalid language code ''{0}''</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Código de idioma no válido ''{0}''</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1601" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Version: {0} Build: {1}</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Versión: {0} Compilación: {1}</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1602" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Selected file is valid TMX</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>El archivo seleccionado es TMX válido</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1603" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>
+
+Usage:
+
+    {0} [-help] [-version] -tmx tmxFile
+
+Where:
+
+    -help:       (optional) Display this help information and exit
+    -version:    (optional) Display version &amp; build information and exit
+    -tmx:        TMX file to validate
+
+</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>
+
+Uso:
+
+    {0} [-help] [-version] -tmx tmxFile
+
+Donde:
+
+    -help:       (opcional) Mostrar esta información de ayuda y salir
+    -version: (opcional) Mostrar información de versión y salir
+    -tmx:        Archivo TMX a validar
+
+</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1604" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Version: {0} Build: {1}</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Versión: {0} Compilación: {1}</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1605" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Validation server started</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Servidor de validación iniciado</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1606" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Unknown command</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Comando desconocido</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1607" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Missing command</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Falta comando</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1629" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Missing 'process' parameter</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Falta el parámetro 'process'</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1630" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Null 'status'</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>'status' nulo</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1631" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Validation result not found</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Resultado de validación no encontrado</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1632" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Missing 'file' parameter</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>Falta el parámetro 'file'</seg>
+</tuv>
+</tu>
+<tu creationtool="OpenXLIFF Filters" creationtoolversion="3.11.0" tuid="1941992779-0-1633" creationdate="20230801T123623Z">
+<tuv xml:lang="en" creationdate="20230801T123623Z">
+<seg>Selected file is valid TMX</seg>
+</tuv>
+<tuv xml:lang="es" creationdate="20230801T123623Z">
+<seg>El archivo seleccionado es TMX válido</seg>
+</tuv>
+</tu>
+</body>
+</tmx>
