@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005-2023 Maxprograms.
+ * Copyright (c) 2005-2024 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -40,7 +40,7 @@ import com.maxprograms.xml.IContentHandler;
 
 public class TMXValidatingHandler implements IContentHandler {
 
-	public static final String RELOAD = Messages.getString("TMXValidatingHandler.0"); //$NON-NLS-1$
+	public static final String RELOAD = Messages.getString("TMXValidatingHandler.0");
 	private Element current;
 	Stack<Element> stack;
 	Map<String, Set<String>> xMap;
@@ -137,53 +137,53 @@ public class TMXValidatingHandler implements IContentHandler {
 			current.setAttribute(atts.getQName(i), atts.getValue(i));
 		}
 		if (root == null) {
-			if (qName.equals("tmx")) { //$NON-NLS-1$
+			if (qName.equals("tmx")) {
 				root = current;
-				version = root.getAttributeValue("version"); //$NON-NLS-1$
+				version = root.getAttributeValue("version");
 				if (version.isEmpty()) {
-					throw new SAXException(Messages.getString("TMXValidatingHandler.1")); //$NON-NLS-1$
+					throw new SAXException(Messages.getString("TMXValidatingHandler.1"));
 				}
-				if (!(version.equals("1.1") || version.equals("1.2") || version.equals("1.3") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						|| version.equals("1.4"))) { //$NON-NLS-1$
-					MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.2")); //$NON-NLS-1$
+				if (!(version.equals("1.1") || version.equals("1.2") || version.equals("1.3")
+						|| version.equals("1.4"))) {
+					MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.2"));
 					throw new SAXException(mf.format(new Object[] { version }));
 				}
 				if (systemId == null && publicId == null) {
 					throw new SAXException(RELOAD);
 				}
 			} else {
-				throw new SAXException(Messages.getString("TMXValidatingHandler.3")); //$NON-NLS-1$
+				throw new SAXException(Messages.getString("TMXValidatingHandler.3"));
 			}
 		}
-		if (qName.equals("header")) { //$NON-NLS-1$
-			srcLang = current.getAttributeValue("srclang"); //$NON-NLS-1$
+		if (qName.equals("header")) {
+			srcLang = current.getAttributeValue("srclang");
 			if (srcLang.isEmpty()) {
-				throw new SAXException(Messages.getString("TMXValidatingHandler.4")); //$NON-NLS-1$
+				throw new SAXException(Messages.getString("TMXValidatingHandler.4"));
 			}
-			if (!srcLang.equals("*all*")) { //$NON-NLS-1$
+			if (!srcLang.equals("*all*")) {
 				try {
 					if (!checkLang(srcLang)) {
-						MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.5")); //$NON-NLS-1$
+						MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.5"));
 						throw new SAXException(mf.format(new Object[] { srcLang }));
 					}
 				} catch (IOException | ParserConfigurationException e) {
-					LOGGER.log(Level.ERROR, Messages.getString("TMXValidatingHandler.6"), e); //$NON-NLS-1$
-					throw new SAXException(Messages.getString("TMXValidatingHandler.6")); //$NON-NLS-1$
+					LOGGER.log(Level.ERROR, Messages.getString("TMXValidatingHandler.6"), e);
+					throw new SAXException(Messages.getString("TMXValidatingHandler.6"));
 				}
 			}
 		}
-		if ("tu".equals(qName)) { //$NON-NLS-1$
+		if ("tu".equals(qName)) {
 			xMap = new Hashtable<>();
 		}
-		if ("tuv".equals(qName)) { //$NON-NLS-1$
-			currentLang = current.hasAttribute("xml:lang") ? current.getAttributeValue("xml:lang") //$NON-NLS-1$ //$NON-NLS-2$
-					: current.getAttributeValue("lang"); //$NON-NLS-1$
+		if ("tuv".equals(qName)) {
+			currentLang = current.hasAttribute("xml:lang") ? current.getAttributeValue("xml:lang")
+					: current.getAttributeValue("lang");
 		}
-		if (current.hasAttribute("x") //$NON-NLS-1$
-				&& ("bpt".equals(qName) || "it".equals(qName) || "ph".equals(qName) || "hi".equals(qName))) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-			String x = current.getAttributeValue("x"); //$NON-NLS-1$
+		if (current.hasAttribute("x")
+				&& ("bpt".equals(qName) || "it".equals(qName) || "ph".equals(qName) || "hi".equals(qName))) {
+			String x = current.getAttributeValue("x");
 			if (!isNumber(x)) {
-				MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.7")); //$NON-NLS-1$
+				MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.7"));
 				throw new SAXException(mf.format(new Object[] { x }));
 			}
 			Set<String> set = xMap.get(currentLang);
@@ -192,7 +192,7 @@ public class TMXValidatingHandler implements IContentHandler {
 				xMap.put(currentLang, set);
 			}
 			if (set.contains(qName + x)) {
-				MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.8")); //$NON-NLS-1$
+				MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.8"));
 				throw new SAXException(mf.format(new Object[] { x, qName }));
 			}
 			set.add(qName + x);
@@ -219,54 +219,54 @@ public class TMXValidatingHandler implements IContentHandler {
 			Attribute a = i.next();
 			String name = a.getName();
 			String value = a.getValue();
-			if (name.equals("lang") || name.equals("adminlang") || name.equals("xml:lang")) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			if (name.equals("lang") || name.equals("adminlang") || name.equals("xml:lang")) {
 				try {
 					if (!checkLang(value)) {
-						MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.9")); //$NON-NLS-1$
+						MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.9"));
 						throw new SAXException(mf.format(new Object[] { value }));
 					}
 				} catch (IOException | ParserConfigurationException e) {
-					LOGGER.log(Level.ERROR, Messages.getString("TMXValidatingHandler.10"), e); //$NON-NLS-1$
-					throw new SAXException(Messages.getString("TMXValidatingHandler.10")); //$NON-NLS-1$
+					LOGGER.log(Level.ERROR, Messages.getString("TMXValidatingHandler.10"), e);
+					throw new SAXException(Messages.getString("TMXValidatingHandler.10"));
 				}
 			}
-			if (name.equals("usagecount") && !isNumber(value)) { //$NON-NLS-1$
-				MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.11")); //$NON-NLS-1$
+			if (name.equals("usagecount") && !isNumber(value)) {
+				MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.11"));
 				throw new SAXException(mf.format(new Object[] { value }));
 			}
-			if ((name.equals("lastusagedate") || name.equals("changedate") || name.equals("creationdate")) //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			if ((name.equals("lastusagedate") || name.equals("changedate") || name.equals("creationdate"))
 					&& !checkDate(value)) {
-				MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.12")); //$NON-NLS-1$
+				MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.12"));
 				throw new SAXException(mf.format(new Object[] { value }));
 			}
 		}
-		if (current.getName().equals("seg")) { //$NON-NLS-1$
+		if (current.getName().equals("seg")) {
 			balance = 0;
 			ids = null;
 			ids = new Hashtable<>();
 			recurse(current);
 			if (balance != 0) {
-				MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.13")); //$NON-NLS-1$
+				MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.13"));
 				throw new SAXException(mf.format(new String[] { current.toString() }));
 			}
 			if (ids.size() > 0) {
 				Enumeration<String> en = ids.keys();
 				while (en.hasMoreElements()) {
-					if (!ids.get(en.nextElement()).equals("0")) { //$NON-NLS-1$
-						MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.14")); //$NON-NLS-1$
+					if (!ids.get(en.nextElement()).equals("0")) {
+						MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.14"));
 						throw new SAXException(mf.format(new String[] { current.toString() }));
 					}
 				}
 			}
 		}
-		if (localName.equals("tu")) { //$NON-NLS-1$
-			if (!srcLang.equals("*all*")) { //$NON-NLS-1$
+		if (localName.equals("tu")) {
+			if (!srcLang.equals("*all*")) {
 				checkLanguageVariants(current);
 			}
 			Set<String> xKeys = xMap.keySet();
 			if (!xKeys.isEmpty()) {
-				if (current.getChildren("tuv").size() != xKeys.size()) { //$NON-NLS-1$
-					throw new SAXException(Messages.getString("TMXValidatingHandler.15")); //$NON-NLS-1$
+				if (current.getChildren("tuv").size() != xKeys.size()) {
+					throw new SAXException(Messages.getString("TMXValidatingHandler.15"));
 				}
 				Set<String> xValues = xMap.get(currentLang);
 				Iterator<String> it = xKeys.iterator();
@@ -274,7 +274,7 @@ public class TMXValidatingHandler implements IContentHandler {
 					String key = it.next();
 					Set<String> langSet = xMap.get(key);
 					if (langSet.size() != xValues.size() || !langSet.containsAll(xValues)) {
-						throw new SAXException(Messages.getString("TMXValidatingHandler.16")); //$NON-NLS-1$
+						throw new SAXException(Messages.getString("TMXValidatingHandler.16"));
 					}
 				}
 			}
@@ -287,24 +287,24 @@ public class TMXValidatingHandler implements IContentHandler {
 	}
 
 	private void checkLanguageVariants(Element tu) throws SAXException {
-		List<Element> variants = tu.getChildren("tuv"); //$NON-NLS-1$
+		List<Element> variants = tu.getChildren("tuv");
 		Iterator<Element> it = variants.iterator();
 		boolean found = false;
 		while (it.hasNext() && !found) {
 			Element tuv = it.next();
-			String lang = tuv.getAttributeValue("xml:lang"); //$NON-NLS-1$
-			if (lang.isEmpty() && (version.equals("1.1") || version.equals("1.2"))) { //$NON-NLS-1$ //$NON-NLS-2$
-				lang = tuv.getAttributeValue("lang"); //$NON-NLS-1$
+			String lang = tuv.getAttributeValue("xml:lang");
+			if (lang.isEmpty() && (version.equals("1.1") || version.equals("1.2"))) {
+				lang = tuv.getAttributeValue("lang");
 			}
 			if (lang.isEmpty()) {
-				throw new SAXException(Messages.getString("TMXValidatingHandler.17")); //$NON-NLS-1$
+				throw new SAXException(Messages.getString("TMXValidatingHandler.17"));
 			}
 			if (lang.equals(srcLang)) {
 				found = true;
 			}
 		}
 		if (!found) {
-			MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.18")); //$NON-NLS-1$
+			MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.18"));
 			throw new SAXException(mf.format(new Object[] { srcLang }));
 		}
 	}
@@ -332,7 +332,7 @@ public class TMXValidatingHandler implements IContentHandler {
 	}
 
 	private boolean checkLang(String lang) throws IOException, SAXException, ParserConfigurationException {
-		if (lang.startsWith("x-") || lang.startsWith("X-")) { //$NON-NLS-1$ //$NON-NLS-2$
+		if (lang.startsWith("x-") || lang.startsWith("X-")) {
 			// custom language code
 			return true;
 		}
@@ -355,15 +355,15 @@ public class TMXValidatingHandler implements IContentHandler {
 			return false;
 		}
 		try {
-			int year = Integer.parseInt("" + date.charAt(0) + date.charAt(1) + date.charAt(2) + date.charAt(3)); //$NON-NLS-1$
+			int year = Integer.parseInt("" + date.charAt(0) + date.charAt(1) + date.charAt(2) + date.charAt(3));
 			if (year < 0) {
 				return false;
 			}
-			int month = Integer.parseInt("" + date.charAt(4) + date.charAt(5)); //$NON-NLS-1$
+			int month = Integer.parseInt("" + date.charAt(4) + date.charAt(5));
 			if (month < 1 || month > 12) {
 				return false;
 			}
-			int day = Integer.parseInt("" + date.charAt(6) + date.charAt(7)); //$NON-NLS-1$
+			int day = Integer.parseInt("" + date.charAt(6) + date.charAt(7));
 			switch (month) {
 				case 1, 3, 5, 7, 8, 10, 12 -> {
 					if (day < 1 || day > 31) {
@@ -402,15 +402,15 @@ public class TMXValidatingHandler implements IContentHandler {
 					return false;
 				}
 			}
-			int hour = Integer.parseInt("" + date.charAt(9) + date.charAt(10)); //$NON-NLS-1$
+			int hour = Integer.parseInt("" + date.charAt(9) + date.charAt(10));
 			if (hour < 0 || hour > 23) {
 				return false;
 			}
-			int min = Integer.parseInt("" + date.charAt(11) + date.charAt(12)); //$NON-NLS-1$
+			int min = Integer.parseInt("" + date.charAt(11) + date.charAt(12));
 			if (min < 0 || min > 59) {
 				return false;
 			}
-			int sec = Integer.parseInt("" + date.charAt(13) + date.charAt(14)); //$NON-NLS-1$
+			int sec = Integer.parseInt("" + date.charAt(13) + date.charAt(14));
 			if (sec < 0 || sec > 59) {
 				return false;
 			}
@@ -425,41 +425,41 @@ public class TMXValidatingHandler implements IContentHandler {
 		Iterator<Element> it = children.iterator();
 		while (it.hasNext()) {
 			Element e = it.next();
-			if (e.getName().equals("bpt")) { //$NON-NLS-1$
+			if (e.getName().equals("bpt")) {
 				balance += 1;
-				if (version.equals("1.4")) { //$NON-NLS-1$
-					String s = e.getAttributeValue("i"); //$NON-NLS-1$
+				if (version.equals("1.4")) {
+					String s = e.getAttributeValue("i");
 					if (!isNumber(s)) {
 						MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.19"));
 						throw new SAXException( mf.format(new String[] { element.toString() }));
 					}
 					if (!ids.containsKey(s)) {
-						ids.put(s, "1"); //$NON-NLS-1$
+						ids.put(s, "1");
 					} else {
-						if (ids.get(s).equals("-1")) { //$NON-NLS-1$
-							ids.put(s, "0"); //$NON-NLS-1$
+						if (ids.get(s).equals("-1")) {
+							ids.put(s, "0");
 						} else {
-							MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.20")); //$NON-NLS-1$
+							MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.20"));
 							throw new SAXException(mf.format(new String[] { element.toString() }));
 						}
 					}
 				}
 			}
-			if (e.getName().equals("ept")) { //$NON-NLS-1$
+			if (e.getName().equals("ept")) {
 				balance -= 1;
-				if (version.equals("1.4")) { //$NON-NLS-1$
-					String s = e.getAttributeValue("i"); //$NON-NLS-1$
+				if (version.equals("1.4")) {
+					String s = e.getAttributeValue("i");
 					if (!isNumber(s)) {
-						MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.21")); //$NON-NLS-1$
+						MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.21"));
 						throw new SAXException(mf.format(new String[] { element.toString() }));
 					}
 					if (!ids.containsKey(s)) {
-						ids.put(s, "-1"); //$NON-NLS-1$
+						ids.put(s, "-1");
 					} else {
-						if (ids.get(s).equals("1")) { //$NON-NLS-1$
-							ids.put(s, "0"); //$NON-NLS-1$
+						if (ids.get(s).equals("1")) {
+							ids.put(s, "0");
 						} else {
-							MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.22")); //$NON-NLS-1$
+							MessageFormat mf = new MessageFormat(Messages.getString("TMXValidatingHandler.22"));
 							throw new SAXException(mf.format(new String[] { element.toString() }));
 						}
 					}

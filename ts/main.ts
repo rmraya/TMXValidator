@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005-2023 Maxprograms.
+ * Copyright (c) 2005-2024 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -29,10 +29,12 @@ class Main {
         });
 
         this.electron.ipcRenderer.on('validation-started', () => {
+            document.documentElement.style.cursor = 'wait';
             document.getElementById('working').style.display = 'block';
         });
 
         this.electron.ipcRenderer.on('validation-completed', () => {
+            document.documentElement.style.cursor = 'default';
             document.getElementById('working').style.display = 'none';
         });
     }

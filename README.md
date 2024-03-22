@@ -1,6 +1,6 @@
-![alt text](https://maxprograms.com/images/Red_squares.png "TMXValidator Icon")
+# TMXValidator
 
-## TMXValidator
+![alt text](https://maxprograms.com/images/Red_squares.png "TMXValidator Icon")
 
 Check the validity of your TMX documents on Windows, Linux or macOS with TMXValidator.
 
@@ -16,12 +16,13 @@ The original version of TMXValidator loaded the TMX file into memory for validat
 
 This version of TMXValidator does not need to load the whole file into memory and has no size limitation.
 
-### Releases
+## Releases
 
 Version | Comment | Release Date
 --------|---------|-------------
+2.7.0 | Added support for huge files | March 22, 2024
 2.6.0 | Tighter checking of "x" and "i" attributes and language codes | July 4, 2023
-2.5.0 | Updated code and libraries | May 22, 2023
+2.5.0 | Updated code and libraries | May 22, 2023Ø
 2.4.0 | Updated libraries | December 8, 2022
 2.3.0 | Updated code and libraries | February 17, 2022
 2.2.0 | Updated libraries and TypeScript code | January 2, 2021
@@ -34,15 +35,15 @@ Ready to use installers are available at [https://www.maxprograms.com/products/t
 
 ## Requirements
 
-- JDK 17 or newer is required for compiling and building. Get it from [Adoptium](https://adoptium.net/).
-- Apache Ant 1.10.12 or newer. Get it from [https://ant.apache.org/](https://ant.apache.org/)
-- Node.js 18.16.0 LTS or newer. Get it from [https://nodejs.org/](https://nodejs.org/)
-- TypeScript 5.1.6 or newer. Get it from [https://www.typescriptlang.org/](https://www.typescriptlang.org/)
+- JDK 21 or newer is required for compiling and building. Get it from [Adoptium](https://adoptium.net/).
+- Apache Ant 1.10.14 or newer. Get it from [https://ant.apache.org/](https://ant.apache.org/)
+- Node.js 20.11.0 LTS or newer. Get it from [https://nodejs.org/](https://nodejs.org/)
+- TypeScript 5.4.2 or newer. Get it from [https://www.typescriptlang.org/](https://www.typescriptlang.org/)
 
 ## Building
 
 - Checkout this repository.
-- Point your `JAVA_HOME` environment variable to JDK 17
+- Point your `JAVA_HOME` environment variable to JDK 21
 - Run `ant` to compile the Java code
 - Run `npm install` to download and install NodeJS dependencies
 - Run `npm start` to launch TMXValidator

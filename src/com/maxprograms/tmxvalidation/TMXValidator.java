@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005-2023 Maxprograms.
+ * Copyright (c) 2005-2024 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -53,7 +53,7 @@ public class TMXValidator {
 			if (sax.getMessage().equals(TMXValidatingHandler.RELOAD)) {
 				// TMX DTD was not declared
 				String version = handler.getVersion();
-				File copy = File.createTempFile("copy", ".tmx"); //$NON-NLS-1$ //$NON-NLS-2$
+				File copy = File.createTempFile("copy", ".tmx");
 				copy.deleteOnExit();
 				copyFile(file, copy, version);
 				builder.build(copy);
@@ -64,17 +64,17 @@ public class TMXValidator {
 	}
 
 	private static void copyFile(File file, File copy, String version) throws IOException, SAXException, ParserConfigurationException {
-		String systemID = "tmx14.dtd"; //$NON-NLS-1$
-		if (version.equals("1.3")) { //$NON-NLS-1$
-			systemID = "tmx13.dtd"; //$NON-NLS-1$
-		} else if (version.equals("1.2")) { //$NON-NLS-1$
-			systemID = "tmx12.dtd"; //$NON-NLS-1$
-		} else if (version.equals("1.1")) { //$NON-NLS-1$
-			systemID = "tmx11.dtd"; //$NON-NLS-1$
+		String systemID = "tmx14.dtd";
+		if (version.equals("1.3")) {
+			systemID = "tmx13.dtd";
+		} else if (version.equals("1.2")) {
+			systemID = "tmx12.dtd";
+		} else if (version.equals("1.1")) {
+			systemID = "tmx11.dtd";
 		}
 		try (FileOutputStream out = new FileOutputStream(copy)) {
-			writeString(out, "<?xml version=\"1.0\" ?>\n"); //$NON-NLS-1$
-			writeString(out, "<!DOCTYPE tmx SYSTEM \"" + systemID + "\">\n"); //$NON-NLS-1$ //$NON-NLS-2$
+			writeString(out, "<?xml version=\"1.0\" ?>\n");
+			writeString(out, "<!DOCTYPE tmx SYSTEM \"" + systemID + "\">\n");
 			SAXBuilder copyBuilder = new SAXBuilder();
 			TMXCopyHandler copyHandler = new TMXCopyHandler(out);
 			copyBuilder.setContentHandler(copyHandler);
@@ -88,19 +88,19 @@ public class TMXValidator {
 	
 	public static void main(String[] args) {
 		String[] commandLine = fixPath(args);
-		String tmx = ""; //$NON-NLS-1$
+		String tmx = "";
 		for (int i = 0; i < commandLine.length; i++) {
 			String arg = commandLine[i];
-			if (arg.equals("-version")) { //$NON-NLS-1$
-				MessageFormat mf = new MessageFormat(Messages.getString("TMXValidator.0") ); //$NON-NLS-1$
+			if (arg.equals("-version")) {
+				MessageFormat mf = new MessageFormat(Messages.getString("TMXValidator.0") );
 				LOGGER.log(Level.INFO, () -> mf.format(new String[] {Constants.VERSION, Constants.BUILD}));
 				return;
 			}
-			if (arg.equals("-help")) { //$NON-NLS-1$
+			if (arg.equals("-help")) {
 				help();
 				return;
 			}
-			if (arg.equals("-tmx") && (i + 1) < commandLine.length) { //$NON-NLS-1$
+			if (arg.equals("-tmx") && (i + 1) < commandLine.length) {
 				tmx = commandLine[i + 1];
 			}
 		}
@@ -111,18 +111,18 @@ public class TMXValidator {
 		try {
 			TMXValidator validator = new TMXValidator();
 			validator.validate(new File(tmx));
-			LOGGER.log(Level.INFO, Messages.getString("TMXValidator.1")); //$NON-NLS-1$
+			LOGGER.log(Level.INFO, Messages.getString("TMXValidator.1"));
 		} catch (IOException | SAXException | ParserConfigurationException e) {
 			LOGGER.log(Level.ERROR, e.getMessage());
 		}
 	}
 	
 	private static void help() {
-		String launcher = "tmxvalidator.sh"; //$NON-NLS-1$
-		if (System.getProperty("file.separator").equals("\\")) { //$NON-NLS-1$ //$NON-NLS-2$
-			launcher = "tmxvalidator.bat"; //$NON-NLS-1$
+		String launcher = "tmxvalidator.sh";
+		if (System.getProperty("file.separator").equals("\\")) {
+			launcher = "tmxvalidator.bat";
 		}
-		MessageFormat mf = new MessageFormat(Messages.getString("TMXValidator.2")); //$NON-NLS-1$
+		MessageFormat mf = new MessageFormat(Messages.getString("TMXValidator.2"));
 		System.out.println(mf.format(new String[] {launcher}));
 	}
 
@@ -131,7 +131,7 @@ public class TMXValidator {
 		StringBuilder current = new StringBuilder();
 		for (int i = 0; i < args.length; i++) {
 			String arg = args[i];
-			if (arg.startsWith("-")) { //$NON-NLS-1$
+			if (arg.startsWith("-")) {
 				if (current.length() > 0) {
 					result.add(current.toString().trim());
 					current = new StringBuilder();

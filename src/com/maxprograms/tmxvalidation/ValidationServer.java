@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005-2023 Maxprograms.
+ * Copyright (c) 2005-2024 Maxprograms.
  *
  * This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License 1.0
@@ -47,20 +47,20 @@ public class ValidationServer implements HttpHandler {
 		running = new Hashtable<>();
 		validationResults = new Hashtable<>();
 		server = HttpServer.create(new InetSocketAddress(port), 0);
-		server.createContext("/ValidationServer", this); //$NON-NLS-1$
+		server.createContext("/ValidationServer", this);
 		server.setExecutor(null); // creates a default executor
 	}
 
 	public static void main(String[] args) {
-		String port = "8010"; //$NON-NLS-1$
+		String port = "8010";
 		for (int i = 0; i < args.length; i++) {
 			String arg = args[i];
-			if (arg.equals("-version")) { //$NON-NLS-1$
-				MessageFormat mf = new MessageFormat(Messages.getString("ValidationServer.0") ); //$NON-NLS-1$
+			if (arg.equals("-version")) {
+				MessageFormat mf = new MessageFormat(Messages.getString("ValidationServer.0") );
 				LOGGER.log(Level.INFO, () -> mf.format(new String[] {Constants.VERSION, Constants.BUILD}));
 				return;
 			}
-			if (arg.equals("-port") && (i + 1) < args.length) { //$NON-NLS-1$
+			if (arg.equals("-port") && (i + 1) < args.length) {
 				port = args[i + 1];
 			}
 		}
@@ -74,39 +74,39 @@ public class ValidationServer implements HttpHandler {
 
 	private void run() {
 		server.start();
-		LOGGER.log(Level.INFO, Messages.getString("ValidationServer.1")); //$NON-NLS-1$
+		LOGGER.log(Level.INFO, Messages.getString("ValidationServer.1"));
 	}
 
 	@Override
 	public void handle(HttpExchange t) throws IOException {
 		JSONObject json = null;
 
-		String response = ""; //$NON-NLS-1$
-		String command = "version"; //$NON-NLS-1$
+		String response = "";
+		String command = "version";
 		try {
 			try (InputStream is = t.getRequestBody()) {
 				json = readRequestBody(is);
 			}
-			if (json.has("command")) { //$NON-NLS-1$
-				command = json.getString("command"); //$NON-NLS-1$
-				if ("version".equals(command)) { //$NON-NLS-1$
+			if (json.has("command")) {
+				command = json.getString("command");
+				if ("version".equals(command)) {
 					JSONObject result = new JSONObject();
-					result.put("version", Constants.VERSION); //$NON-NLS-1$
-					result.put("build", Constants.BUILD); //$NON-NLS-1$
+					result.put("version", Constants.VERSION);
+					result.put("build", Constants.BUILD);
 					response = result.toString();
-				} else if ("validate".equals(command)) { //$NON-NLS-1$
+				} else if ("validate".equals(command)) {
 					response = validate(json);
-				} else if ("status".equals(command)) { //$NON-NLS-1$
+				} else if ("status".equals(command)) {
 					response = getStatus(json);
-				} else if ("validationResult".equals(command)) { //$NON-NLS-1$
+				} else if ("validationResult".equals(command)) {
 					response = getValidationResult(json);
 				} else {
-					response = "{\"reason\":\"" + Messages.getString("ValidationServer.2") + "\"}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					response = "{\"reason\":\"" + Messages.getString("ValidationServer.2") + "\"}";
 				}
 			} else {
-				response = "{\"reason\":\"" + Messages.getString("ValidationServer.3") + "\"}"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				response = "{\"reason\":\"" + Messages.getString("ValidationServer.3") + "\"}";
 			}
-			t.getResponseHeaders().add("content-type", "application/json; charset=utf-8"); //$NON-NLS-1$ //$NON-NLS-2$
+			t.getResponseHeaders().add("content-type", "application/json; charset=utf-8");
 			byte[] bytes = response.getBytes(StandardCharsets.UTF_8);
 			t.sendResponseHeaders(200, bytes.length);
 			try (OutputStream os = t.getResponseBody()) {
@@ -137,49 +137,49 @@ public class ValidationServer implements HttpHandler {
 
 	private String getStatus(JSONObject json) {
 		JSONObject result = new JSONObject();
-		if (!json.has("process")) { //$NON-NLS-1$
-			result.put("status", Constants.ERROR); //$NON-NLS-1$
-			result.put("reason", Messages.getString("ValidationServer.4")); //$NON-NLS-1$ //$NON-NLS-2$
+		if (!json.has("process")) {
+			result.put("status", Constants.ERROR);
+			result.put("reason", Messages.getString("ValidationServer.4"));
 			return result.toString();
 		}
-		String process = json.getString("process"); //$NON-NLS-1$
+		String process = json.getString("process");
 		String status = running.get(process);
 		if (status != null) {
-			result.put("status", status); //$NON-NLS-1$
+			result.put("status", status);
 		} else {
-			result.put("status", Constants.ERROR); //$NON-NLS-1$
-			result.put("reason", Messages.getString("ValidationServer.5")); //$NON-NLS-1$ //$NON-NLS-2$
+			result.put("status", Constants.ERROR);
+			result.put("reason", Messages.getString("ValidationServer.5"));
 		}
 		return result.toString();
 	}
 
 	private String getValidationResult(JSONObject json) {
 		JSONObject result = new JSONObject();
-		if (!json.has("process")) { //$NON-NLS-1$
-			result.put("status", Constants.ERROR); //$NON-NLS-1$
-			result.put("reason", Messages.getString("ValidationServer.4")); //$NON-NLS-1$ //$NON-NLS-2$
+		if (!json.has("process")) {
+			result.put("status", Constants.ERROR);
+			result.put("reason", Messages.getString("ValidationServer.4"));
 			return result.toString();
 		}
-		String process = json.getString("process"); //$NON-NLS-1$
+		String process = json.getString("process");
 		if (validationResults.containsKey(process)) {
 			result = validationResults.get(process);
 			validationResults.remove(process);
 			return result.toString();
 		}
-		result.put("status", Constants.ERROR); //$NON-NLS-1$
-		result.put("reason", Messages.getString("ValidationServer.6")); //$NON-NLS-1$ //$NON-NLS-2$
+		result.put("status", Constants.ERROR);
+		result.put("reason", Messages.getString("ValidationServer.6"));
 		return result.toString();
 	}
 
 	private String validate(JSONObject json) {
 		JSONObject result = new JSONObject();
-		if (!json.has("file")) { //$NON-NLS-1$
-			result.put("status", Constants.ERROR); //$NON-NLS-1$
-			result.put("reason", Messages.getString("ValidationServer.7")); //$NON-NLS-1$ //$NON-NLS-2$
+		if (!json.has("file")) {
+			result.put("status", Constants.ERROR);
+			result.put("reason", Messages.getString("ValidationServer.7"));
 			return result.toString();
 		}
-		String file = json.getString("file"); //$NON-NLS-1$
-		String process = "" + System.currentTimeMillis(); //$NON-NLS-1$
+		String file = json.getString("file");
+		String process = "" + System.currentTimeMillis();
 		new Thread(new Runnable() {
 
 			@Override
@@ -189,15 +189,15 @@ public class ValidationServer implements HttpHandler {
 				TMXValidator validator = new TMXValidator();
 				try {
 					validator.validate(new File(file));
-					result.put("valid", true); //$NON-NLS-1$
-					result.put("comment", Messages.getString("ValidationServer.8")); //$NON-NLS-1$ //$NON-NLS-2$
+					result.put("valid", true);
+					result.put("comment", Messages.getString("ValidationServer.8"));
 				} catch (IOException | SAXException | ParserConfigurationException e) {
-					result.put("valid", false); //$NON-NLS-1$
+					result.put("valid", false);
 					String reason = e.getMessage();
 					if (reason.indexOf('\n') != -1) {
 						reason = reason.substring(0, reason.indexOf('\n'));
 					}
-					result.put("reason", reason); //$NON-NLS-1$
+					result.put("reason", reason);
 				}
 				validationResults.put(process, result);
 				if (running.get(process).equals(Constants.RUNNING)) {
@@ -205,8 +205,8 @@ public class ValidationServer implements HttpHandler {
 				}
 			}
 		}).start();
-		result.put("status", Constants.SUCCESS); //$NON-NLS-1$
-		result.put("process", process); //$NON-NLS-1$
+		result.put("status", Constants.SUCCESS);
+		result.put("process", process);
 		return result.toString();
 	}
 }
