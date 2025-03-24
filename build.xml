@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project basedir="." default="dist" name="TMXValidator">
-    <property name="target" value="17"/>
-    <property name="source" value="17"/>
+    <property name="target" value="21"/>
+    <property name="source" value="21"/>
     <property name="build.compiler" value="javac10+"/>
     <path id="TMXValidator.classpath">
         <pathelement location="jars/bcp47j.jar"/>
