@@ -123,4 +123,8 @@ export class VersionHandler implements ContentHandler {
         // ignore
     }
 
+    getCurrentText(): string {
+        return '';
+    }
+
 }

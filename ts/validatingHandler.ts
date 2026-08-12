@@ -185,7 +185,7 @@ export class ValidatingHandler implements ContentHandler {
         }
         if (this.grammar) {
             let childNames: string[] = this.current.getChildren().map(c => c.getName());
-            let elemResult: ValidationResult = this.grammar.validateElement(this.current.getName(), childNames);
+            let elemResult: ValidationResult = this.grammar.validateElement(this.current.getName(), '', childNames, this.current.pureText());
             if (!elemResult.isValid) {
                 throw new Error(elemResult.errors[0].message);
             }
@@ -421,5 +421,9 @@ export class ValidatingHandler implements ContentHandler {
     private getAttrValue(element: XMLElement, name: string): string {
         let att: XMLAttribute | undefined = element.getAttribute(name);
         return att ? att.getValue() : '';
+    }
+
+    getCurrentText(): string {
+        return this.current !== null ? this.current.pureText() : '';
     }
 }
