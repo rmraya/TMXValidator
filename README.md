@@ -18,6 +18,7 @@ TMXValidator has since been rewritten entirely in TypeScript. It uses a SAX-base
 
 Version | Comment | Release Date
 ------- | ------- | ------------
+3.1.0 | Updated dependencies | August 12, 2026
 3.0.0 | Rewritten entirely in TypeScript and removed Java code | April 6, 2026
 2.8.0 | Added Spanish and French localization | August 3, 2025
 2.7.0 | Added support for huge files | March 22, 2024
@@ -35,7 +36,7 @@ Ready to use installers are available at [https://www.maxprograms.com/products/t
 
 ## Requirements
 
-- Node.js 24.14.0 LTS or newer. Get it from [https://nodejs.org/](https://nodejs.org/)
+- Node.js 24.18.0 LTS or newer. Get it from [https://nodejs.org/](https://nodejs.org/)
 
 ## Building
 
